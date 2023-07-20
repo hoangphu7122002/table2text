@@ -1,0 +1,22 @@
+Prefix - trạng ngữ:
+    def genPrefixAdv()
+Prefix - mô tả: 
+    def genPrefixDesc()
+a) Với 1 chỉ tiêu riêng lẻ:
+    1. Chỉ nhận định các thông tin liên quan tháng đó:
+        def genOneKPI(sign=1,ratio=1,index=None)
+    2. So sánh với KPIs tháng trước:
+        def genCompareKPIMonthBefore(sign=1,ratio=1,index=None)
+    3. So sánh với cùng kỳ năm trước:
+        def genCompareKPIMYearBefore(sign=1,ratio=1,index=None)
+
+    #Full: template a.1 + (template a.2|) + (template a.3|)
+    def genFullMonthView(sign=[1,1,1],ratio=[1,1,1],indexMonthNow=None,indexMonthBefore=None,indexYearBefore=None,index=None)
+
+b) Với 1 cụm chỉ tiêu:
+    1. Nhận xét tổng thể về chỉ tiêu này:
+        def genGroupMonthOverall(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Không Đạt", "Không Đạt"],index = None)
+    2. Nhận xét sâu hơn:
+        def genGroupMonthDetail(lenChildKPI=3,index = None)
+    3. Nhận xét về KPI con => KPI mẹ: (phục vụ Q/A)
+        def genChildInferenceMom(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Không Đạt", "Không Đạt"], index=None)
