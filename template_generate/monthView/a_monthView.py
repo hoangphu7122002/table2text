@@ -5,10 +5,10 @@ import random
 ############################################
 def genPrefixAdv():
     listAdv = [
-        "Hiện tại ",
-        "Điểm dữ liệu này cho ta quan sát ",
-        "Ta thấy được rằng ",
-        "Ta nhận xét rằng ",
+        "Hiện tại",
+        "Điểm dữ liệu này cho ta quan sát",
+        "Ta thấy được rằng",
+        "Ta nhận xét rằng",
         ""
     ]
     return random.choice(listAdv)
@@ -121,7 +121,7 @@ def genOneKPI(sign=1,ratio=1,index=None):
     listOneKPI = [
         "có KPI đạt được là <hiện trạng KPI><đơn vị>", #View ngắn gọn
         f"với hiện trạng đạt được là <hiện trạng KPI><đơn vị>, {genDiffDesc(sign)} <Độ tăng giảm so với KPIs mục tiêu> so với mục tiêu KPI là <mục tiêu KPI><đơn vị>", #View bao quát - bằng delta
-        f", chỉ tiêu hiện đã {genRatioDesc(ratio)} <Tỉ lệ so với KPIs mục tiêu> lần so với mục tiêu KPI ban đầu {genDetailTarget()}", #View bao quát - bằng tỉ lệ
+        f"chỉ tiêu hiện đã {genRatioDesc(ratio)} <Tỉ lệ so với KPIs mục tiêu> lần so với mục tiêu KPI ban đầu {genDetailTarget()}", #View bao quát - bằng tỉ lệ
         f"khi KPI {genMonthKPIDesc()} là <hiện trạng KPI><đơn vị> {genDescribeTarget()} đề ra là <mục tiêu KPI><đơn vị>{genDetailKPIMonth()}" #View chi tiết
     ]
     
@@ -148,8 +148,8 @@ def genDescAdv():
 def genMonthBeforeDesc():
     listMonthBeforeDesc = [
         "tháng trước",
-        "T<tháng -1>/<năm>",
-        "vào tháng <tháng -1> năm <năm>"
+        "T<tháng-1>/<năm>",
+        "vào tháng <tháng-1> năm <năm>"
     ]
     
     return random.choice(listMonthBeforeDesc)
@@ -182,8 +182,8 @@ def genCompareKPIMonthBefore(sign=1,ratio=1,index=None):
 ##(Ngoài ra|Trong khi đó|)
 def genDescAdvYear():
     listDescAdvYear = [
-        "Ngoài ra",
-        "Trong khi đó",
+        "ngoài ra",
+        "trong khi đó",
         ""
     ]
     
@@ -193,8 +193,8 @@ def genDescAdvYear():
 def genYearBeforeDesc():
     listYearBeforeDesc = [
         "so với cùng kỳ năm ngoái",
-        "với <tháng>/<năm -1>",
-        "tháng <tháng> năm <năm -1>",
+        "với <tháng>/<năm-1>",
+        "tháng <tháng> năm <năm-1>",
         "cùng kỳ năm trước"
     ]
     
@@ -203,8 +203,8 @@ def genYearBeforeDesc():
 ##(,(tăng|giảm)<Độ tăng giảm so với KPI cùng kỳ năm trước><đơn vị>|,(gấp|chỉ bằng)<Tỉ lệ so với KPI cùng kỳ năm trước>lần|)
 def genDetailKPIYearBefore(sign=1,ratio=1):
     listDetailKPIYearBefore = [
-        f",{genDiffDesc(sign)} <Độ tăng giảm so với KPI cùng kỳ năm trước><đơn vị>",
-        f",{genRatioDesc(ratio)} <Tỉ lệ so với KPI cùng kỳ năm trước> lần",
+        f"{genDiffDesc(sign)} <Độ tăng giảm so với KPI cùng kỳ năm trước><đơn vị>",
+        f"{genRatioDesc(ratio)} <Tỉ lệ so với KPI cùng kỳ năm trước> lần",
         ""
     ]
     
@@ -244,6 +244,4 @@ def genFullMonthView(sign=[1,1,1],ratio=[1,1,1],indexMonthNow=None,indexMonthBef
 #==========genFullMonthView==========
 
 if __name__ == "__main__":
-    text = genPrefixAdv() + ' ' + genPrefixDesc() + ' ' + genOneKPI() + ' ' + genCompareKPIMonthBefore() + ' ' + genCompareKPIMYearBefore()
-    text = text.replace("  "," ")
-    print(text)
+    print(genPrefixAdv() + ' ' + genPrefixDesc() + ' ' + genFullMonthView())
