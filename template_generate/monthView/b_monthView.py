@@ -99,7 +99,7 @@ def genGroupMonthDetail(lenChildKPI=3,index = None):
 def genNowHave():
     listNowHave = [
         "hiện trạng đạt được <hiện trạng KPI><đơn vị>"
-        "|"
+        ""
     ]
     
     return random.choice(listNowHave)
@@ -131,4 +131,4 @@ def genChildInferenceMom(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Kh�
 #===========genChildInferenceMom===========
 
 if __name__ == "__main__":
-    print(genChildInferenceMom())
+    print(genGroupMonthOverall())
