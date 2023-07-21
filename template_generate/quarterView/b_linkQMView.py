@@ -100,5 +100,68 @@ def genMonthViewDatDetail(year = 0):
         
 #==============genMonthViewDatDetail==============
 
+#==============genMonthViewKoDatOverall==============
+def genMonthViewKoDatOverall():
+    listMonthViewKoDatOverall = [
+        "Cả tháng <tháng> và quý <quý> trong cùng <năm> của chỉ tiêu <tên chỉ tiêu> đều được đánh giá là không đạt."
+    ]
+    
+    return random.choice(listMonthViewKoDatOverall)
+#==============genMonthViewKoDatOverall==============
+
+
+#==============genMonthViewKoDatDetail==============
+##(Ngoài ra | ta cũng có được)
+def genAdv1():
+    listAdv1 = [
+        "Ngoài ra",
+        "Ta cũng có được",
+        "Tôi thấy được"
+    ]
+    
+    return random.choice(listAdv1)
+##(khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm>|)
+def genYearKoDatDetail():
+    listYearKoDatExplain = [
+        "khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm>",
+        ""
+    ]
+    
+    return random.choice(listYearKoDatExplain)
+
+##góc nhìn khác
+def genYearKoDatExplain(index=None):
+    listYearKoDatExplain = [
+        f"Tuy nhiên KPI năm lại đạt, trường hợp này chưa thấy xảy ra bao giờ", #năm đạt
+        f"{genAdv1()} hiện trạng KPI của năm được đánh giá là không đạt {genYearKoDatDetail()}. {genRequireAdjustKoDat()}", #nếu năm không đạt
+        ""
+    ]
+    
+    if index is None:
+        return random.choice(listYearKoDatExplain)
+    
+    assert(index < len(listYearKoDatExplain))
+    return listYearKoDatExplain[index]
+
+##Yêu cầu giải trình và điều chỉnh
+def genRequireAdjustKoDat():
+    listRequireAdjustKoDat = [
+        "cần giải trình nguyên nhân dẫn đến kết quả không tốt này từ <tổng công ty>", #Yêu cầu giải trình
+        "kết quả này xảy ra có thể do mục tiêu KPI đề ra quá cao, có thể điều chỉnh các con số này lại sao cho phù hợp hơn với tình cảnh hiện tại", #Yêu cầu điều chỉnh
+        ""
+    ]
+    
+    return random.choice(listRequireAdjustKoDat)
+
+####################################################
+def genMonthViewKoDatDetail(year = 1):
+    index_detail = random.choice([0,1])
+    listMonthViewDatDetail = [
+        f"với chỉ tiêu <tên chỉ tiêu>, hiện trạng có được trong {genMonthDesc()} {genDetailQMDesc(index_detail)} được đánh giá là không đạt và kết quả này vẫn xảy ra trong {genQuarterDesc()} {genDetailQMDesc(index_detail)}, cho thấy {genYearKoDatExplain(index=year)}",
+    ]
+    
+    return random.choice(listMonthViewDatDetail)
+#==============genMonthViewKoDatDetail==============
+
 if __name__ == "__main__":
-    print(genMonthViewDatDetail())
+    print(genMonthViewKoDatDetail())

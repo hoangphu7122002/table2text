@@ -3,6 +3,6 @@ b) Liên kết giữa tháng và quý
     1. Nhận xét dựa vào kết quả đạt hay không đạt của KPIs tháng, quý
         + View tháng, quý kết quả đều đạt - 1 (tổng quan): def genMonthViewDatOverview()
         + View tháng, quý kết quả đều đạt - 2 (Chi tiết): def genMonthViewDatDetail(year = 0)
-        + View tháng và quý không đạt (tổng quan):
-        + View tháng và quý đều không đạt (chi tiết):     
+        + View tháng và quý không đạt (tổng quan): def genMonthViewKoDatOverall()
+        + View tháng và quý đều không đạt (chi tiết): def genMonthViewKoDatDetail(year = 1)
         + View cả hai có ít nhất 1 chỉ tiêu đạt và không đạt:
