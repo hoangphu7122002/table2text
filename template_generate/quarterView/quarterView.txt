@@ -6,3 +6,7 @@ b) Liên kết giữa tháng và quý
         + View tháng và quý không đạt (tổng quan): def genMonthViewKoDatOverall()
         + View tháng và quý đều không đạt (chi tiết): def genMonthViewKoDatDetail(year = 1)
         + View cả hai có ít nhất 1 chỉ tiêu đạt và không đạt:
+            T ko đạt, Q đạt:
+                def genTKoDatQDat(year=None)
+            T đạt, Q ko đạt:
+                def genTDatQKoDat(year=None)

@@ -12,5 +12,6 @@ a) Nhận xét trend:
     3. View giải trình với kết quả hiện có (đạt được hiện tại là n, sẽ sử dụng n -1 thông tin kia để dự báo đối chiếu):
         def genViewExplainResult(index_detail = None)
     4. View xem xét xu hướng:
-        
-b) Một số câu hỏi liên quan thống kê (mean, median, max, mean - sẽ triển khai sau)
+        def genViewDetermineTrend(index1=None,index2=None)
+b) Một số câu hỏi liên quan thống kê (mean, median, max - sẽ triển khai sau):
+    

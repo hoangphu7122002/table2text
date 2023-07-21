@@ -1,4 +1,14 @@
+import os, sys
+
+def import_src():
+    dir2 = os.path.abspath('')
+    dir1 = os.path.dirname(dir2)
+    if not dir1 in sys.path: sys.path.append(dir1)
+    # print(f'Append {dir1} to sys.path')
+
 import random
+import_src()
+import helperFunction
 
 #==============genMonthViewDatOverview==============
 ##(cả tháng <tháng> và quý <quý> của năm <năm>|trong T<tháng>/<năm> và Q<quý>/<năm>)
@@ -163,5 +173,157 @@ def genMonthViewKoDatDetail(year = 1):
     return random.choice(listMonthViewDatDetail)
 #==============genMonthViewKoDatDetail==============
 
+#Tháng đạt, quý không đạt
+#==============genTKoDatQDat================
+##(nhưng mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>|giảm <độ chênh lệch KPI> so với KPI của mục tiêu tháng|chỉ bằng <tỉ lệ> một phần của KPI mục tiêu tháng)
+def genDecreaseKPIMonth(index=None):
+    listDecreaseKPIMonth = [
+        "nhưng mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
+        "giảm <độ chênh lệch> so với KPI của mục tiêu tháng",
+        "chỉ bằng <tỉ lệ> lần của KPI mục tiêu tháng"
+    ]
+    
+    if index is None:
+        return random.choice(listDecreaseKPIMonth)
+    assert(index < len(listDecreaseKPIMonth))
+    return listDecreaseKPIMonth[index]
+
+##(khi KPI hiện trạng đạt được <hiện trạng KPI tháng><đơn vị> (genDescreaseKPIMonth)|)
+def genDescribeKPIMonth(index=None,index_detail=None):
+    listDescribeKPIMonth = [
+        f"khi KPI hiện trạng đạt được <hiện trạng KPI tháng><đơn vị> {genDecreaseKPIMonth(index_detail)}",
+        ""
+    ]
+    if index is None:    
+        return random.choice(listDescribeKPIMonth)
+    assert(index < len(listDescribeKPIMonth))
+    
+    return listDescribeKPIMonth[index]
+
+##("vượt qua mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>"|"tăng <độ chênh lệch> so với KPI của mục tiêu tháng"|"gấp <tỉ lệ> lần của KPI mục tiêu tháng")
+def genIncreaseKPIQuarter(index = None):
+    listIncreaseKPIQuarter = [
+        "vượt qua mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
+        "tăng <độ chênh lệch> so với KPI của mục tiêu tháng",
+        "gấp <tỉ lệ> lần của KPI mục tiêu tháng"
+    ]
+    
+    if index is None:
+        return random.choice(listIncreaseKPIQuarter)
+    assert(index < len(listIncreaseKPIQuarter))
+    return listIncreaseKPIQuarter[index]
+
+##(khi KPI của quý đạt được <hiện trạng KPI quý> đơn vị> {genIncreaseKPIQuarter()}|)
+def genDescribeKPIQuarter(index=None,index_detail=None):
+    listDescribeKPIQuarter = [
+        f"khi KPI hiện trạng đạt được <hiện trạng KPI quý><đơn vị> {genIncreaseKPIQuarter(index_detail)}",
+        ""
+    ]
+    if index is None:    
+        return random.choice(listDescribeKPIQuarter)
+    assert(index < len(listDescribeKPIQuarter))
+    
+    return listDescribeKPIQuarter[index]
+
+####################################################
+def genTKoDatQDat(year=None):
+    index_detail = random.choice([*range(3)])
+    index = random.choice([*range(2)])
+    listTKoDatQDat = [
+        f"tuy kết quả của tháng với chỉ tiêu <tên chỉ tiêu> được đánh giá là không đạt {genDescribeKPIMonth(index,index_detail)} nhưng hiện kết quả đánh giá của quý vẫn đạt {genDescribeKPIQuarter(index,index_detail)}. Điều này cho thấy, các hiện trạng KPI tháng trước đã kéo kết quả của quý hiện tại lên mức đạt. {genExplainYear1(year)}",
+    ]
+    
+    return random.choice(listTKoDatQDat)
+    
+def genYearDetail1(index=None):
+    listYearDat1 = [
+        f"tuy nhiên kết quả đánh giá của KPI của năm lại đạt",
+        f"do kết quả KPI của năm tính đến hiện tại là <hiện trạng KPI năm><đơn vị> so với mục tiêu KPI năm là <mục tiêu KPI năm><đơn vị>",    
+        f"bên cạnh đó kết quả đánh giá của KPI của năm lại không đạt",
+    ]
+    
+    if index is None:
+        return random.choice(listYearDat1)
+    assert(index < len(listYearDat1))
+    
+    return listYearDat1[index]
+
+def genExplainYear1(index=None):
+    listExplainYear1 = [
+        f"{genYearDetail1(random.choice([0,1]))} điều này chứng tỏ kết quả không đạt của chỉ tiêu tháng này không ảnh hưởng nhiều đến kết quả KPI dự kiến của năm.", #Nếu năm đạt:
+        f"{genYearDetail1(random.choice([2,1]))} cho ta thấy được các quý trước có kết quả không tốt đã ảnh hưởng tới cả kết quả của quý này. Cần xem lại các kết quả của quý trước.", #Nếu năm không đạt (nếu quý hiện tại != Q1)
+        ""
+    ]
+    
+    if index is None:
+        return random.choice(listExplainYear1)
+    assert(index < len(listExplainYear1))
+    
+    return listExplainYear1[index]
+
+#==============genTKoDatQDat================
+
+#==============genTDatQKoDat================
+##(với mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>|tăng <độ chênh lệch> so với KPI của mục tiêu tháng|gấp <tỉ lệ> lần của KPI mục tiêu tháng)
+def genIncreaseKPIMonth(index=None):
+    listIncreaseKPIMonth = [
+        "với mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
+        "tăng <độ chênh lệch> so với KPI của mục tiêu tháng",
+        "gấp <tỉ lệ> lần của KPI mục tiêu tháng"
+    ]
+    
+    if index is None:
+        return random.choice(listIncreaseKPIMonth)
+    assert(index < len(listIncreaseKPIMonth))
+    return listIncreaseKPIMonth[index]
+
+##(khi KPI hiện trạng đạt được <hiện trạng KPI tháng><đơn vị> (genDescreaseKPIMonth)|)
+def genDescribeKPIMonth_Inc(index=None,index_detail=None):
+    listDescribeKPIMonth_Inc = [
+        f"khi KPI hiện trạng đạt được <hiện trạng KPI tháng><đơn vị> {genIncreaseKPIMonth(index_detail)}",
+        ""
+    ]
+    if index is None:    
+        return random.choice(listDescribeKPIMonth_Inc)
+    assert(index < len(listDescribeKPIMonth_Inc))
+    
+    return listDescribeKPIMonth_Inc[index]
+
+##("trong khi đó mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>"|"giảm <độ chênh lệch> so với KPI của mục tiêu tháng"|"chỉ bằng <tỉ lệ> lần của KPI mục tiêu tháng")
+def genDescreaseKPIQuarter(index = None):
+    listDescreaseKPIQuarter = [
+        "trong khi đó mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
+        "giảm <độ chênh lệch> so với KPI của mục tiêu tháng",
+        "chỉ bằng <tỉ lệ> lần của KPI mục tiêu tháng"
+    ]
+    
+    if index is None:
+        return random.choice(listDescreaseKPIQuarter)
+    assert(index < len(listDescreaseKPIQuarter))
+    return listDescreaseKPIQuarter[index]
+
+##(khi KPI của quý đạt được <hiện trạng KPI quý> đơn vị> {genIncreaseKPIQuarter()}|)
+def genDescribeKPIQuarter_Des(index=None,index_detail=None):
+    listDescribeKPIQuarter_Des = [
+        f"khi KPI hiện trạng đạt được <hiện trạng KPI quý><đơn vị> {genDescreaseKPIQuarter(index_detail)}",
+        ""
+    ]
+    if index is None:    
+        return random.choice(listDescribeKPIQuarter_Des)
+    assert(index < len(listDescribeKPIQuarter_Des))
+    
+    return listDescribeKPIQuarter_Des[index]
+
+################################################################
+def genTDatQKoDat(year = None):
+    index_detail = random.choice([*range(3)])
+    index = random.choice([*range(2)])
+    listTDatQKoDat = [
+        f"ta thấy kết quả của tháng với chỉ tiêu <tên chỉ tiêu> được đánh giá là đạt {genDescribeKPIMonth_Inc(index,index_detail)} nhưng hiện kết quả đánh giá của quý vẫn chưa đạt {genDescribeKPIQuarter_Des(index,index_detail)}. Điều này cho thấy, các hiện trạng KPI tháng trước đã kéo kết quả của quý hiện tại xuống mức không đạt. {genExplainYear1(year)}",
+    ]
+    
+    return random.choice(listTDatQKoDat)
+#==============genTDatQKoDat================
+
 if __name__ == "__main__":
-    print(genMonthViewKoDatDetail())
+    print(helperFunction.postProcessOutput(genTDatQKoDat()))
