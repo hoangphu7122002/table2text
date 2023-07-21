@@ -1,0 +1,16 @@
+a) Nhận xét trend:
+    1. View thống kê:
+        #View thống kê (theo các gốc nhìn với chu kỳ mùa):
+            def genViewStatSeason()
+        #View thống kê (theo các tháng gần nhất trong năm):
+            def genViewStatMonthBefore()
+    2. View dự báo:
+        #View dự báo (góc nhìn theo các tháng trước):
+            def genViewPredictMonthBefore()
+        #View dự báo (góc nhìn theo chu kỳ mùa):
+            def genViewPredictMonthBefore()
+    3. View giải trình với kết quả hiện có (đạt được hiện tại là n, sẽ sử dụng n -1 thông tin kia để dự báo đối chiếu):
+        def genViewExplainResult(index_detail = None)
+    4. View xem xét xu hướng:
+        
+b) Một số câu hỏi liên quan thống kê (mean, median, max, mean - sẽ triển khai sau)
