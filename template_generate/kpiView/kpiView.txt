@@ -14,4 +14,12 @@ a) Nhận xét trend:
     4. View xem xét xu hướng:
         def genViewDetermineTrend(index1=None,index2=None)
 b) Một số câu hỏi liên quan thống kê (mean, median, max - sẽ triển khai sau):
-    
+    1. View 1 chỉ tiêu:
+        def genViewOneKpiStat(index=None,indexView=None,flagMeanMM=None,flagMinMax=None)
+        indexView=random.choice([0,1,2])
+    2. View cụm chỉ tiêu:
+        def genViewOneGroupKPIStat(index=None,indexView=None,flagMeanMM=None,flagMinMax=None)
+        indexView=random.choice([0,1,2])
+    3. View tổng công ty:
+        
+
