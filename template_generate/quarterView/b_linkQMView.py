@@ -7,7 +7,8 @@ def import_src():
     # print(f'Append {dir1} to sys.path')
 
 import random
-import_src()
+# import_src()
+sys.path.append('/home/tungpth/table2text/template_generate')
 import helperFunction
 
 #==============genMonthViewDatOverview==============
@@ -319,7 +320,8 @@ def genTDatQKoDat(year = None):
     index_detail = random.choice([*range(3)])
     index = random.choice([*range(2)])
     listTDatQKoDat = [
-        f"ta thấy kết quả của tháng với chỉ tiêu <tên chỉ tiêu> được đánh giá là đạt {genDescribeKPIMonth_Inc(index,index_detail)} nhưng hiện kết quả đánh giá của quý vẫn chưa đạt {genDescribeKPIQuarter_Des(index,index_detail)}. Điều này cho thấy, các hiện trạng KPI tháng trước đã kéo kết quả của quý hiện tại xuống mức không đạt. {genExplainYear1(year)}",
+        f"ta thấy kết quả của tháng với chỉ tiêu <tên chỉ tiêu> được đánh giá là đạt {genDescribeKPIMonth_Inc(index,index_detail)} nhưng hiện kết quả đánh giá của quý vẫn chưa đạt {genDescribeKPIQuarter_Des(index,index_detail)}. \
+        Điều này cho thấy, các hiện trạng KPI tháng trước đã kéo kết quả của quý hiện tại xuống mức không đạt. {genExplainYear1(year)}",
     ]
     
     return random.choice(listTDatQKoDat)
