@@ -41,7 +41,7 @@ def genCompanyDesc():
 ##(kết quả là | đã)
 def genResultDesc():
     listResultDesc = [
-        "có kết quả là",
+        "có kết quả là", 
         "đã",
         "được đánh gía",
         "ghi nhận",
@@ -158,8 +158,9 @@ def genDescAdv():
 def genQuaterBeforeDesc():
     listQuaterBeforeDesc = [
         "quý trước",
-        "T<quý-1>/<năm>",
-        "vào quý <quý-1> năm <năm>"
+        "Q<quý-1>/<năm>",
+        "vào quý <quý-1> năm <năm>",
+        "quý trước đó",
     ]
     
     return random.choice(listQuaterBeforeDesc)
@@ -194,6 +195,7 @@ def genDescAdvYear():
     listDescAdvYear = [
         "ngoài ra",
         "trong khi đó",
+        "dữ liệu còn cho biết",
         ""
     ]
     
@@ -222,7 +224,7 @@ def genDetailKPIYearBefore(sign=1,ratio=1):
 ############################################
 def genCompareKPIMYearBefore(sign=1,ratio=1,index=None):
     listCompareKPIMYearBefore = [
-        f"{genDetailKPIYearBefore(sign,ratio)} so với KPI đạt được {genYearBeforeDesc()}", #View bao quát
+        f"{genDetailKPIYearBefore(sign,ratio)} so với kết quả đạt được {genYearBeforeDesc()}", #View bao quát
         f"{genDescAdvYear()} {genYearBeforeDesc()} chỉ tiêu đạt được <KPI cùng kỳ năm trước><đơn vị> {genDetailKPIYearBefore(sign,ratio)}", #View thể hiện chi tiết
     ]
     
