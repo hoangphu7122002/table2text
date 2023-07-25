@@ -1,0 +1,8 @@
+a) Với nội bộ chỉ tiêu và cụm chỉ tiêu
+    **Với chỉ tiêu
+    1. Chỉ nhận định các thông tin liên quan quý đó:
+        def genOneKPI(sign=1,ratio=1,index=None)
+    2. So sánh với cùng kỳ năm trước:
+        def genCompareKPILastYear(sign=1,ratio=1,index=None)
+    #Full: template a.1 + (template a.2|)
+    def genFullYearView(sign=[1,1],ratio=[1,1],indexYear=None, indexLastYear=None,index=None)
