@@ -5,8 +5,24 @@ import a_monthView
 ##(bao gồm <tổng số chỉ tiêu con> chỉ tiêu con|có số chỉ tiêu con là <tổng số chỉ tiêu con>)
 def genTimeMonth():
     listTimeMonth = [
-        "Trong <tháng> năm <năm>,",
-        "Với T<tháng>/<năm>,",
+        "Trong tháng <tháng> năm <năm>,",
+        "Với t<tháng>/<năm>,",
+    ]
+    
+    return random.choice(listTimeMonth)
+
+def genTimeQuarter():
+    listTimeMonth = [
+        "Trong quý <quý> năm <năm>,",
+        "Với q<quý>/<năm>,",
+    ]
+    
+    return random.choice(listTimeMonth)
+
+def genTimeYear():
+    listTimeMonth = [
+        "Trong năm <năm>,",
+        "Với N<năm>,",
     ]
     
     return random.choice(listTimeMonth)
@@ -22,8 +38,9 @@ def genGroupDesc():
 ##(với đơn vị <đơn vị> và <điều kiện>|)
 def genUnitDesc():
     listUnitDesc = [
-        "với đơn vị <đơn vị> và <điều kiện>",
-        ""
+        "với đơn vị <đơn vị> và điều kiện <điều kiện>",
+        "với đơn vị <đơn vị>",
+        "vớI điều kiện để đạt được là <điều kiện>"
     ]
     
     return random.choice(listUnitDesc)
@@ -34,14 +51,25 @@ def genListedOneKPI(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Không �
     
     sente = ""
     for kpi,res in zip(groupKPI,groupResult):
-        sente += f"\n+ Chỉ tiêu {kpi} có kết quả là: {res}"
+        sente += f'\n+ Chỉ tiêu "{kpi}" có kết quả là: {res}'
     return sente
 
 ################################################
-def genGroupMonthOverall(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Không Đạt", "Không Đạt"],index = None):
+def genGroupMonthOverall(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Không Đạt", "Không Đạt"],view = None,index = None):
+    if view is None: prefix = random.choice([genTimeMonth(),genTimeQuarter(),genTimeYear()])
+    elif view == "month": prefix = genTimeMonth()
+    elif view == "quarter": prefix = genTimeQuarter()
+    else: prefix = genTimeYear()
+    
+    if view == "year" or view == "quarter":
+        desc = "tính đến tháng <tháng> năm <năm>"
+    else:
+        desc = ""
+    
+    
     listGroupMonthOverall = [
-        f"{genTimeMonth()} cụm chỉ tiêu <tên cụm chỉ tiêu> {genUnitDesc()} có số chỉ tiêu con là <tổng số chỉ tiêu con>, trong đó có số chỉ tiêu không đạt là <Số chỉ tiêu không đạt> chỉ tiêu, số chỉ tiêu đạt là <Số chỉ tiêu đạt> chỉ tiêu.", #View bao quát
-        f"{genTimeMonth()} cụm chỉ tiêu <tên cụm chỉ tiêu> {genUnitDesc()} {genGroupDesc()}, tên và kết quả tương ứng lần lượt là: {genListedOneKPI(groupKPI,groupResult)}"  #View liệt kê
+        f"{prefix} cụm chỉ tiêu <tên cụm chỉ tiêu> {desc} {genUnitDesc()} có số chỉ tiêu con là <tổng số chỉ tiêu con>, trong đó có số chỉ tiêu không đạt là <số chỉ tiêu không đạt> chỉ tiêu, số chỉ tiêu đạt là <số chỉ tiêu đạt> chỉ tiêu.", #View bao quát
+        f"{prefix} cụm chỉ tiêu <tên cụm chỉ tiêu> {desc} {genUnitDesc()} {genGroupDesc()}, tên và kết quả tương ứng lần lượt là: {genListedOneKPI(groupKPI,groupResult)}"  #View liệt kê
     ]
     if index is None:
         return random.choice(listGroupMonthOverall)
@@ -69,15 +97,15 @@ def genListedOneKPIDetail(lenChildKPI,index_detail=None):
     indexMonthBefore = random.choice([*range(3)])
     indexYearBefore = random.choice([*range(2)])
     for _ in range(lenChildKPI):
-        sente += f"""\n+ {a_monthView.genFullMonthView(indexMonthNow=indexMonthNow,
+        sente += f"""\n+ {a_monthView.genFullView(indexMonthNow=indexMonthNow,
                                                     indexMonthBefore=indexMonthBefore,
                                                     indexYearBefore=indexYearBefore,
                                                     index=index_detail)}"""
     return sente
 
 ################################################
-def genGroupMonthDetail(lenChildKPI=3,index = None):
-    prefix = f"{genGroupMonthOverall(index = 0)} {genDescListedOverall()}"
+def genGroupMonthDetail(lenChildKPI=3,view=None,index = None):
+    prefix = f"{genGroupMonthOverall(view=view,index = 0)} {genDescListedOverall()}"
     desc = [
         f"{prefix} {genDescListedOverall()}", #View liệt kê tổng thể,
         f"{prefix} Những KPI đạt là:", #View chỉ liệt kê những KPI đạt
@@ -91,6 +119,22 @@ def genGroupMonthDetail(lenChildKPI=3,index = None):
     
     assert(index < len(desc))
     return desc[index] + genListedOneKPIDetail(lenChildKPI,index_detail)
+
+def genGroupMonthDetail1(view=None,index = None,lenDatList=0,lenKoDatList=0):
+    prefix = f"{genGroupMonthOverall(view=view,index = 0)}"
+    desc = [
+        f"{prefix} {genDescListedOverall()}", #View liệt kê tổng thể,
+        f"{prefix} Những KPI đạt là:", #View chỉ liệt kê những KPI đạt
+        f"{prefix} Những KPI {random.choice(['không','chưa'])} đạt là:", #View chỉ liệt kê những KPI không đạt
+    ]
+    
+    if index is None:
+        return random.choice(desc)
+    if index == 1 and lenDatList == 0:
+        return prefix
+    if index == 2 and lenKoDatList == 0:
+        return prefix
+    return desc[index]
 
 #===========genGroupMonthDetail===========
 

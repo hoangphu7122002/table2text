@@ -25,6 +25,6 @@ def postProcessOutput(sent):
         firstDigit = text[0]
         parital = text[1:]
         newSent.append(firstDigit.upper()+parital)
+    
     return ". ".join(newSent)
-
-#===========================================================================
+#==========================================================================
