@@ -80,7 +80,7 @@ def genRatioDesc(res = 1):
 def genMonthKPIDesc():
     listMonthKPIDesc = [
         "tháng",
-        "hiện đạt được",
+        "hiện có được",
         ""
     ]
     
@@ -89,7 +89,7 @@ def genMonthKPIDesc():
 ##(,(tăng|giảm)<Độ tăng giảm so với KPIs mục tiêu>,(gấp|chỉ bằng)<Tỉ lệ so với KPIs mục tiêu>)
 def genDetailKPIMonth(sign=1,res=1,index=None):
     listDetailKPIMonth = [
-        f"{genDiffDesc(sign)} <Độ tăng giảm so với KPIs mục tiêu>, {genRatioDesc(res)} <Tỉ lệ so với KPIs mục tiêu> lần",
+        f"{genDiffDesc(sign)} <Độ tăng giảm so với KPIs mục tiêu><đơn vị>, {genRatioDesc(res)} <Tỉ lệ so với KPIs mục tiêu> lần",
         ""
     ]
     
@@ -119,10 +119,10 @@ def genDescribeTarget():
 ############################################
 def genOneKPI(sign=1,ratio=1,index=None):
     listOneKPI = [
-        "có KPI đạt được là <hiện trạng KPI><đơn vị>", #View ngắn gọn
-        f"với hiện trạng đạt được là <hiện trạng KPI><đơn vị>, {genDiffDesc(sign)} <Độ tăng giảm so với KPIs mục tiêu> so với mục tiêu KPI là <mục tiêu KPI><đơn vị>", #View bao quát - bằng delta
+        "có kết quả là <hiện trạng KPI><đơn vị>", #View ngắn gọn
+        f"với hiện trạng có kết quả là <hiện trạng KPI><đơn vị>, {genDiffDesc(sign)} <Độ tăng giảm so với KPIs mục tiêu><đơn vị> so với mục tiêu KPI là <mục tiêu KPI><đơn vị>", #View bao quát - bằng delta
         f"chỉ tiêu hiện đã {genRatioDesc(ratio)} <Tỉ lệ so với KPIs mục tiêu> lần so với mục tiêu KPI ban đầu {genDetailTarget()}", #View bao quát - bằng tỉ lệ
-        f"khi KPI {genMonthKPIDesc()} là <hiện trạng KPI><đơn vị> {genDescribeTarget()} đề ra là <mục tiêu KPI><đơn vị>{genDetailKPIMonth()}" #View chi tiết
+        f"khi KPI {genMonthKPIDesc()} là <hiện trạng KPI><đơn vị> {genDescribeTarget()} đề ra là <mục tiêu KPI><đơn vị> {genDetailKPIMonth()}" #View chi tiết
     ]
     
     if index is None:
@@ -157,7 +157,7 @@ def genMonthBeforeDesc():
 ##(tăng|giảm)<Độ tăng giảm so với KPI tháng trước>|(gấp|chỉ bằng)<Tỉ lệ so với KPI tháng trước>lần)
 def genDetailKPIMonthBefore(sign=1,ratio=1):
     listDetailKPIMonthBefore = [
-        f"{genDiffDesc(sign)} <Độ tăng giảm so với KPI tháng trước>",
+        f"{genDiffDesc(sign)} <Độ tăng giảm so với KPI tháng trước><đơn vị>",
         f"{genRatioDesc(ratio)} <Tỉ lệ so với KPI tháng trước> lần",
     ]
     
@@ -166,8 +166,8 @@ def genDetailKPIMonthBefore(sign=1,ratio=1):
 ############################################
 def genCompareKPIMonthBefore(sign=1,ratio=1,index=None):
     listCompareKPIMonthBefore = [
-        f"đối với KPI tháng trước đạt được <KPI tháng trước><đơn vị>", #View ngắn gọn
-        f"{genDetailKPIMonthBefore(sign,ratio)} so với KPI đạt được {genMonthBeforeDesc()}", #View bao quát hơn
+        f"đối với KPI tháng trước là <KPI tháng trước><đơn vị>", #View ngắn gọn
+        f"{genDetailKPIMonthBefore(sign,ratio)} so với KPI là {genMonthBeforeDesc()}", #View bao quát hơn
         f"{genDescAdv()} trong khi {genMonthBeforeDesc()} đạt <KPI tháng trước><đơn vị>, {genDetailKPIMonth(sign,ratio)}", #View thể hiện chi tiết
     ]
     
@@ -212,8 +212,8 @@ def genDetailKPIYearBefore(sign=1,ratio=1):
 ############################################
 def genCompareKPIMYearBefore(sign=1,ratio=1,index=None):
     listCompareKPIMYearBefore = [
-        f"{genDetailKPIYearBefore(sign,ratio)} so với KPI đạt được {genYearBeforeDesc()}", #View bao quát
-        f"{genDescAdvYear()} {genYearBeforeDesc()} chỉ tiêu đạt được <KPI cùng kỳ năm trước><đơn vị> {genDetailKPIYearBefore(sign,ratio)}", #View thể hiện chi tiết
+        f"{genDetailKPIYearBefore(sign,ratio)} so với KPI là {genYearBeforeDesc()}", #View bao quát
+        f"{genDescAdvYear()} {genYearBeforeDesc()} chỉ tiêu có được là <KPI cùng kỳ năm trước><đơn vị> {genDetailKPIYearBefore(sign,ratio)}", #View thể hiện chi tiết
     ]
     
     if index is None:
@@ -225,14 +225,14 @@ def genCompareKPIMYearBefore(sign=1,ratio=1,index=None):
 
 #==========genFullMonthView==========
 ############################################
-def genFullMonthView(sign=[1,1,1],ratio=[1,1,1],indexMonthNow=None,indexMonthBefore=None,indexYearBefore=None,index=None):
+def genFullView(sign=[1,1,1],ratio=[1,1,1],indexMonthNow=None,indexMonthBefore=None,indexYearBefore=None,index=None):
     prefix = genOneKPI(sign=sign[0],ratio=ratio[0],index=indexMonthNow)
     month = genCompareKPIMonthBefore(sign=sign[1],ratio=ratio[1],index=indexMonthBefore)
     year = genCompareKPIMYearBefore(sign=sign[2],ratio=ratio[2],index=indexYearBefore)
     listFullMonthView = [
         f"{prefix}", #chỉ tháng hiện tại
-        f"{prefix} {month}", #so sánh thêm tháng trước đó
-        f"{prefix} {year}", #so sánh cùng kỳ quý
+        f"{prefix}. {month}", #so sánh thêm tháng trước đó
+        f"{prefix}. {year}", #so sánh cùng kỳ quý
         f"{prefix}. {month} .{year}", #so sánh cả tháng trước và cùng kỳ quý
     ]
     
@@ -244,4 +244,4 @@ def genFullMonthView(sign=[1,1,1],ratio=[1,1,1],indexMonthNow=None,indexMonthBef
 #==========genFullMonthView==========
 
 if __name__ == "__main__":
-    print(genPrefixAdv() + ' ' + genPrefixDesc() + ' ' + genFullMonthView())
+    print(genPrefixAdv() + ' ' + genPrefixDesc() + ' ' + genFullView())

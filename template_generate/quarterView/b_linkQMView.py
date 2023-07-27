@@ -55,7 +55,7 @@ def genQuarterDesc():
 ##(là <hiện trạng KPI tháng><đơn vị> so với mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>|)
 def genDetailQMDesc(index = None):
     listDetailQMDesc = [
-        "là <hiện trạng KPI tháng><đơn vị> so với mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị",
+        "là <hiện trạng KPI tháng><đơn vị> so với mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
         ""
     ]
     
@@ -90,7 +90,7 @@ def genExplain(index=None):
 def genYearExplain(index = None):
     listYearExplain = [
         f"Bên cạnh đó chỉ tiêu hiện giờ của năm đề ra vẫn đang giữ vững kết quả đánh giá là đạt", #năm đạt
-        f"Tuy nhiên, hiện trạng năm đánh giá là không đạt khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm>. {genExplain()}", #năm không đạt
+        f"Tuy nhiên, hiện trạng năm đánh giá là không đạt khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm><đơn vị>. {genExplain()}", #năm không đạt
         ""
     ]
 
@@ -134,7 +134,7 @@ def genAdv1():
 ##(khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm>|)
 def genYearKoDatDetail():
     listYearKoDatExplain = [
-        "khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm>",
+        "khi KPI đạt được <hiện trạng KPI năm><đơn vị> nhưng mục tiêu đề ra là <mục tiêu KPI năm><đơn vị>",
         ""
     ]
     
@@ -180,8 +180,8 @@ def genMonthViewKoDatDetail(year = 1):
 def genDecreaseKPIMonth(index=None):
     listDecreaseKPIMonth = [
         "nhưng mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
-        "giảm <độ chênh lệch> so với KPI của mục tiêu tháng",
-        "chỉ bằng <tỉ lệ> lần của KPI mục tiêu tháng"
+        "giảm <độ chênh lệch tháng> so với KPI của mục tiêu tháng",
+        "chỉ bằng <tỉ lệ tháng> lần của KPI mục tiêu tháng"
     ]
     
     if index is None:
@@ -204,9 +204,9 @@ def genDescribeKPIMonth(index=None,index_detail=None):
 ##("vượt qua mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>"|"tăng <độ chênh lệch> so với KPI của mục tiêu tháng"|"gấp <tỉ lệ> lần của KPI mục tiêu tháng")
 def genIncreaseKPIQuarter(index = None):
     listIncreaseKPIQuarter = [
-        "vượt qua mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
-        "tăng <độ chênh lệch> so với KPI của mục tiêu tháng",
-        "gấp <tỉ lệ> lần của KPI mục tiêu tháng"
+        "vượt qua mục tiêu đề ra là <mục tiêu KPI quý><đơn vị>",
+        "tăng <độ chênh lệch quý> so với KPI của mục tiêu quý",
+        "gấp <tỉ lệ quý> lần của KPI mục tiêu quý"
     ]
     
     if index is None:
@@ -269,8 +269,8 @@ def genExplainYear1(index=None):
 def genIncreaseKPIMonth(index=None):
     listIncreaseKPIMonth = [
         "với mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
-        "tăng <độ chênh lệch> so với KPI của mục tiêu tháng",
-        "gấp <tỉ lệ> lần của KPI mục tiêu tháng"
+        "tăng <độ chênh lệch tháng> so với KPI của mục tiêu tháng",
+        "gấp <tỉ lệ tháng> lần của KPI mục tiêu tháng"
     ]
     
     if index is None:
@@ -293,9 +293,9 @@ def genDescribeKPIMonth_Inc(index=None,index_detail=None):
 ##("trong khi đó mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>"|"giảm <độ chênh lệch> so với KPI của mục tiêu tháng"|"chỉ bằng <tỉ lệ> lần của KPI mục tiêu tháng")
 def genDescreaseKPIQuarter(index = None):
     listDescreaseKPIQuarter = [
-        "trong khi đó mục tiêu đề ra là <mục tiêu KPI tháng><đơn vị>",
-        "giảm <độ chênh lệch> so với KPI của mục tiêu tháng",
-        "chỉ bằng <tỉ lệ> lần của KPI mục tiêu tháng"
+        "trong khi đó mục tiêu đề ra là <mục tiêu KPI quý><đơn vị>",
+        "giảm <độ chênh lệch quý> so với KPI của mục tiêu quý",
+        "chỉ bằng <tỉ lệ quý> lần của KPI mục tiêu quý"
     ]
     
     if index is None:

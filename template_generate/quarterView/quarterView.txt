@@ -7,7 +7,6 @@ a) Với nội bộ chỉ tiêu và cụm chỉ tiêu
     3. So sánh với cùng kỳ năm trước:
         def genCompareKPIMYearBefore(sign=1,ratio=1,index=None)
     #Full: template a.1 + (template a.2|) + (template a.3|)
-    def 
     def genFullQuaterView(sign=[1,1,1],ratio=[1,1,1],indexQuaterNow=None,indexQuaterBefore=None,indexYearBefore=None,index=None)
 b) Liên kết giữa tháng và quý
     1. Nhận xét dựa vào kết quả đạt hay không đạt của KPIs tháng, quý
