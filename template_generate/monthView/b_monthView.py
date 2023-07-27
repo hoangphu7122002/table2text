@@ -160,10 +160,14 @@ def genParentDesc():
 
 ##############################################
 def genChildInferenceMom(groupKPI = ["A","B","C"], groupResult = ["Đạt", "Không Đạt", "Không Đạt"], index=None):
-    prefix = f"Chỉ tiêu <tên chỉ tiêu con> {genNowHave()} thuộc về {genParentDesc()} của tổng công ty <tên tổng công ty>."
+    prefix = f"Chỉ tiêu <tên chỉ tiêu con> trong t<tháng>/<năm> {genNowHave()} thuộc về {genParentDesc()} của tổng công ty <tên tổng công ty>."
+    detail = [
+        "với mức kết quả là: <dự đoán KPI><đơn vị>",
+        ""
+    ]
     listChildInferenceMom = [
         f"{prefix} Ngoài ra nhóm chỉ tiêu này còn những chỉ tiêu con khác như: {genListedOneKPI(groupKPI,groupResult)}", #View từ con -> mẹ -> những con khác
-        f"{prefix} Trong cùng năm, chỉ tiêu này có số KPI không đạt là len([D]), số KPI đạt là len([C]) và dự đoán tháng tiếp theo có thể <đạt/không đạt>." #View từ con -> mẹ -> liên hệ với con đó của quá khứ (cần xác định mức độ quá khứ - có thể dự đoán nho nhỏ)
+        f"{prefix} Trong cùng năm, chỉ tiêu này có số KPI không đạt là len([D]), số KPI đạt là len([C]) và dự đoán tháng tiếp theo có thể <dự đoán đạt/không đạt> {random.choice(detail)}." #View từ con -> mẹ -> liên hệ với con đó của quá khứ (cần xác định mức độ quá khứ - có thể dự đoán nho nhỏ)
     ]
     
     if index is None:

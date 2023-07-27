@@ -12,6 +12,7 @@ sys.path.append(f'{localHost}yearView')
 from monthView import a_monthView
 from monthView import b_monthView
 from quarterView import a_quaterView
+from quarterView import b_linkQMView
 from yearView import a_yearView
 
 with open('saved_dictionary.pkl', 'rb') as f:
@@ -147,7 +148,7 @@ def mappingOneKPI(timeFind, view = "", company="", kpi = "",dict_index={"indexNo
     
     if unit != "%":
         unit = ' ' + unit
-    template  = template.replace('<tên chỉ tiêu>',f'"{kpi}"') \
+    template  = template.replace('<tên chỉ tiêu>',f'{kpi}') \
                         .replace('<tên tổng công ty>',f"{company}").replace('<tổng công ty>',f"{company}") \
                         .replace('<đạt/không đạt>',f"{evaluation}") \
                         .replace('<hiện trạng kpi>',f"{kpiNow}") \
@@ -296,5 +297,203 @@ def mappingGroupMonthDetail(timeFind,view="",company="",groupKPI="",index = None
                                                                        "index":index_detail}):}"""
     return template + sente
     
-print(mappingGroupMonthDetail('01/2020',view="",company="",groupKPI="",index = 1))
-# print(mappingOneKPI('01/2020','quarter') + '.')
+def mappingChildInferenceMom(timeFind="",company="",kpi="",index=None):
+    if company == "":
+        company = random.choice(["VTS","VTT","VDS","VTPOST"])
+    if kpi == "":
+        parentSet = loadParentSet(loaded_dict,company)
+        groupKPI = random.choice(list(parentSet))
+        kpi = random.choice(listingGroupKPI(loaded_dict,company,groupKPI))
+    dataset = loaded_dict[timeFind]["month"][company][kpi]
+    dictKey = convertKeyToIndexDict(dataset)
+    
+    #get data
+    unit = dataset[dictKey[3]].lower()
+    condition = dataset[dictKey[4]]
+    target = dataset[dictKey[5]]
+    kpiNow = dataset[dictKey[6]]
+    evaluation = dataset[dictKey[7]].lower()
+    
+    monthBefore = dataset[dictKey[8]]
+    compareMonthBefore = dataset[dictKey[9]]
+    yearBefore = dataset[dictKey[convertIndex(-4,len(dictKey))]]
+    compareYearBefore = dataset[dictKey[convertIndex(-3,len(dictKey))]]
+    groupKPI = dataset[dictKey[convertIndex(-1,len(dictKey))]]
+    ############## 
+    
+    month = timeFind.split('/')[0][1:]
+    print(month)
+    year = timeFind.split('/')[1]
+    print(year)
+    
+    if unit != "%":
+        unit = ' ' + unit
+    
+    if index is None:
+        index = random.choice([0,1])
+    
+    if index == 0:
+        kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
+        evaluationList = [loaded_dict[timeFind]["month"][company][kpi]['Đánh giá'] for kpi in kpiList]
+        template = b_monthView.genChildInferenceMom(kpiList,evaluationList,index)
+    else:
+        template = b_monthView.genChildInferenceMom(index=index)
+    template =  template.replace('<tên chỉ tiêu con>',f'{kpi}')\
+                        .replace('<hiện trạng KPI>',str(kpiNow))\
+                        .replace('<tên cụm chỉ tiêu>',f'{groupKPI}')\
+                        .replace('<đơn vị>',unit)\
+                        .replace('<tên tổng công ty>',company)\
+                        .replace('<tháng>',month)\
+                        .replace('<năm>',year)
+    if index == 1:
+        if month == "1":
+            template = template.replace(' Trong cùng năm, chỉ tiêu này có số lần không đạt là len([D]), số KPI lần là len([C]) và dự đoán tháng tiếp theo có thể <dự đoán đạt/không đạt>.','')
+            return template
+        else:
+            listDate = helperFunction.generatePrevMonthList(timeFind)
+            listKPIKoDat = []
+            listKPIDat = []
+            
+            for i,date in enumerate(listDate):
+                eval = loaded_dict[date]["month"][company][kpi]['Đánh giá']
+                res = loaded_dict[date]["month"][company][kpi][list(loaded_dict[date]["month"][company][kpi].keys())[6]]
+                
+                if eval == "Đạt": 
+                    listKPIDat.append((i,res))
+                else: listKPIKoDat.append((i,res))
+            # print(listKPIDat)
+            # print(listKPIKoDat)
+            
+            #==================can improve better==================
+            res,eval = helperFunction.predictNextMonth(listKPIDat,listKPIKoDat)
+            template =  template.replace('len([D])',str(len(listKPIKoDat))) \
+                                .replace('len([C])',str(len(listKPIDat))) \
+                                .replace('<dự đoán đạt/không đạt>',eval)\
+                                .replace('<dự đoán KPI>',str(res))
+
+    return template            
+
+def retrieveData(dataset):
+    dictKey = convertKeyToIndexDict(dataset)
+    
+    #retrivie data
+    unit = dataset[dictKey[3]].lower()
+    condition = dataset[dictKey[4]]
+    target = dataset[dictKey[5]]
+    kpiNow = dataset[dictKey[6]]
+    evaluation = dataset[dictKey[7]].lower()
+    monthBefore = dataset[dictKey[8]]
+    compareMonthBefore = dataset[dictKey[9]]
+    yearBefore = dataset[dictKey[convertIndex(-4,len(dictKey))]]
+    compareYearBefore = dataset[dictKey[convertIndex(-3,len(dictKey))]]
+    groupKPI = dataset[dictKey[convertIndex(-1,len(dictKey))]]
+    describeNow = dictKey[6]
+    describeMonthBefore = dictKey[8]
+    describeYearBefore = dictKey[convertIndex(-4,len(dictKey))]    
+
+    return {
+        "unit" : unit,
+        "condition" : condition,
+        "target" : target,
+        "kpiNow" : kpiNow,
+        "evaluation" : evaluation,
+        "monthBefore" : monthBefore,
+        "compareMonthBefore" : compareMonthBefore,
+        "yearBefore" : yearBefore,
+        "compareYearBefore": compareYearBefore,
+        "groupKPI" : groupKPI,
+        "describeNow" : describeNow,
+        "describeMonthBefore" : describeMonthBefore,
+        "describeYearBefore" : describeYearBefore
+    }
+
+def mappingCrossView(timeFind,company="",kpi=""):
+    if company == "":
+        company = random.choice(["VTS","VTT","VDS","VTPOST"])
+    if kpi == "":
+        parentSet = loadParentSet(loaded_dict,company)
+        groupKPI = random.choice(list(parentSet))
+        kpi = random.choice(listingGroupKPI(loaded_dict,company,groupKPI))
+    
+    #=======================#
+    monthDataset = loaded_dict[timeFind]["month"][company][kpi]
+    monthDict = retrieveData(monthDataset)
+    
+    quarterDataset = loaded_dict[timeFind]["quarter"][company][kpi]
+    quarterDict = retrieveData(quarterDataset)
+    
+    yearDataset = loaded_dict[timeFind]["year"][company][kpi]
+    yearDict = retrieveData(yearDataset)
+    #=======================#
+    if yearDict["evaluation"] == "đạt": yearFlag = 0
+    else: yearFlag = 1
+    templateGen = ""
+    if monthDict["evaluation"] == "đạt" and quarterDict["evaluation"] == "đạt":
+        templateGen = random.choice([
+            b_linkQMView.genMonthViewDatOverview(),
+            b_linkQMView.genMonthViewDatDetail(year = yearFlag),
+        ])
+
+    if monthDict["evaluation"] == "không đạt" and quarterDict["evaluation"] == "không đạt":
+        templateGen = random.choice([
+            b_linkQMView.genMonthViewKoDatOverall(),
+            b_linkQMView.genMonthViewKoDatDetail(year = yearFlag),
+        ])
+
+    if monthDict["evaluation"] == "đạt" and quarterDict["evaluation"] == "không đạt":
+        templateGen = b_linkQMView.genTKoDatQDat(year = yearFlag)
+    
+    if monthDict["evaluation"] == "không đạt" and quarterDict["evaluation"] == "đạt":
+        templateGen = b_linkQMView.genTDatQKoDat(year = yearFlag)
+    
+    month = monthDict["describeNow"].split(' ')[1].split('.')[0]
+    quarter = quarterDict["describeNow"].split(' ')[1].split('.')[0]
+    year = monthDict["describeNow"].split(' ')[1].split('.')[1]
+    unit = monthDict["unit"]
+    
+    monthKPI = monthDict["kpiNow"]
+    quarterKPI = quarterDict["kpiNow"]
+    yearKPI = yearDict["kpiNow"]
+    
+    monthTarget = monthDict["target"]
+    quarterTarget = quarterDict["target"]
+    yearTarget = yearDict["target"]
+    
+    if unit == "%":
+        unit = ' ' + unit
+    
+    monthRatio = round(monthKPI / monthTarget,2)
+    quarterRatio = round(quarterKPI / quarterTarget,2)
+    yearRatio = round(yearKPI / yearTarget,2)
+    
+    monthDiff = abs(round(monthKPI - monthTarget,2))
+    quarterDiff = abs(round(quarterKPI - quarterTarget,2))
+    yearDiff = abs(round(yearKPI - yearTarget,2))
+    
+    templateGen =    templateGen.replace('<tên chỉ tiêu>',kpi) \
+                                .replace('<tháng>',month) \
+                                .replace('<quý>',quarter) \
+                                .replace('<năm>',year) \
+                                .replace('<đơn vị>',unit) \
+                                .replace('<tổng công ty>',company) \
+                                .replace('<hiện trạng KPI tháng>',str(monthKPI)) \
+                                .replace('<hiện trạng KPI quý>',str(quarterKPI)) \
+                                .replace('<hiện trạng KPI năm>',str(yearKPI)) \
+                                .replace('<mục tiêu KPI tháng>',str(monthTarget)) \
+                                .replace('<mục tiêu KPI quý>',str(quarterTarget)) \
+                                .replace('<mục tiêu KPI năm>',str(yearTarget)) \
+                                .replace('<độ chênh lệch tháng>',str(monthDiff)) \
+                                .replace('<độ chênh lệch quý>',str(quarterDiff)) \
+                                .replace('<độ chênh lệch năm>',str(yearDiff)) \
+                                .replace('<tỉ lệ tháng>',str(monthRatio)) \
+                                .replace('<tỉ lệ quý>',str(quarterRatio)) \
+                                .replace('<tỉ lệ năm>',str(yearRatio)) \
+                                .replace('  ',' ')
+    return templateGen
+    #get data
+
+print(mappingCrossView('01/2020'))
+
+# print(mappingChildInferenceMom('02/2020'))
+# print(mappingGroupMonthDetail('01/2020',view="",company="",groupKPI="",index = 1))
+# print(mappingOneKPI('01/2020') + '.')
