@@ -56,8 +56,8 @@ def genChooseView(index=None,index_detail = None):
 def genStatView1(index=None):
     listStatView1 = [
         "tháng <tháng-m> năm <năm-m>",
-        "quý <quý-m> năm <năm-m>",
-        "năm <năm-m>"
+        "quý <quý-m> năm <năm-m> (cụ thể là tháng <tháng-m> năm <năm-m>)",
+        "năm <năm-m> (cụ thể là tháng <tháng-m> năm <năm-m>)"
     ]
     
     if index is None:
@@ -103,9 +103,13 @@ def genMinMax(index=None):
 
 ##(đạt được mốc <KPI trung bình> là <kết quả KPI trung bình><đơn vị> | thì vào (tháng <tháng-m> năm <năm-m>| T<tháng-m>/<năm-m>| quý <quý-m> năm <năm -m> | Q<quý-m>/<năm-m>| N<năm-m>|năm <năm-m>) đạt được kết quả KPI (lớn nhất | bé nhất) là <hiện trạng KPI-m><đơn vị>)
 def genViewStat(index = None, indexStatView = None, indexDescStatView=None, flagMinMax=None):
+    listDetail = random.choice([
+        "với điều kiện để đạt được là <điều kiện>",
+        ""
+    ])
     listViewStat = [
-        f"đạt được mốc <KPI trung bình> là <kết quả KPI trung bình><đơn vị>", #kpi trung bình
-        f"thì vào {genChooseStatView(indexStatView,indexDescStatView)} đạt được kết quả KPI {genMinMax(flagMinMax)} là <hiện trạng KPI-m><đơn vị>", #kpi min, max
+        f"đạt được mốc KPI trung bình là <kết quả KPI trung bình><đơn vị>", #kpi trung bình
+        f"thì vào {genChooseStatView(indexStatView,indexDescStatView)} đạt được kết quả KPI {genMinMax(flagMinMax)} là <hiện trạng KPI-m><đơn vị> {listDetail}", #kpi min, max
     ]
     
     if index is None:
@@ -191,7 +195,7 @@ def genViewOneGroupKPIStat(index=None,indexView=None,flagMeanMM=None,flagMinMax=
     indexStyle = random.choice([0,1])
     #indexView has value [0,1,2] correspond ["tháng","quý","năm"]
     milestone = genMean(index)
-    if flagMeanMM == None:
+    if flagMeanMM == 1:
         milestone = genMinMaxDesc(index,flagMinMax)
     listOneGroupKPIStat = [
         f"Cụm chỉ tiêu <tên cụm chỉ tiêu> {genDescCompany()} trong {genChooseView(indexStyle,indexView)} {milestone}",

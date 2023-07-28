@@ -1,0 +1,17 @@
+- View 1 chỉ tiêu: 20000 record
+- View cụm 1 chỉ tiêu:
+    + Tổng quan: 2000 record
+    + Chi Tiết: 2000 record
+    + hỏi để biết thêm thông tin của mẹ: 2000 record
+- View Cross: 4000 record
+- View Stat:
+    *Trend
+        + View thống kê: 2000 record
+        + View dự báo: 2000 record
+        + View giải trình với kết quả hiện có: 2000 record
+        + View xem xét xu hướng: 2000 record
+    *Stat
+        + View 1 chỉ tiêu: 2000 record
+        + View cụm chỉ tiêu: 2000 record
+- View tổng công ty: 1000 record
+    

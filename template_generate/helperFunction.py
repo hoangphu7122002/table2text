@@ -4,6 +4,8 @@ import numpy as np
 import calendar
 from datetime import datetime
 from datetime import datetime, timedelta
+from scipy import stats
+import math
 
 #===========================================================================
 #post process output:
@@ -33,7 +35,7 @@ def postProcessOutput(sent):
     
     return ". ".join(newSent)
 #==========================================================================
-
+##Implement sau
 def predictNextMonth(listDat, listKoDat):
     resDat = None
     resKoDat = None
@@ -47,6 +49,18 @@ def predictNextMonth(listDat, listKoDat):
     if resKoDat is None: return resDat, eval
     return (resDat + resKoDat)/2, eval
 
+def predictView(listKPI):
+    return np.mean(listKPI)
+
+def determineTrend(listKPI):
+    assert(len(listKPI) > 1)
+    x = [*range(len(listKPI))]
+    
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x,listKPI)
+    
+    return (math.atan(slope) / math.pi) * 180, slope * len(listKPI) + intercept
+    
+#=========================================================================
 def next_month(date_str):
     date = datetime.strptime(date_str, '%m/%Y').date()
     year = date.year
@@ -66,9 +80,20 @@ def generateListDate(beginDate='01/2020',endDate='07/2023'):
         beginDate = next_month(beginDate)
     return listDate
 
-def generatePrevMonthList(date_str):
+def genPreviousSeason(date_str):
     month = date_str.split('/')[0]
-    year = date_str.split('/')[1]
+    year = int(date_str.split('/')[1])
+    listDateStr = []
+    
+    while year != 2019:
+        listDateStr.append(f'{month}/{year}')
+        year -= 1
+    
+    return listDateStr
+
+def generatePrevMonthList(date_str):
+    month = int(date_str.split('/')[0])
+    year = int(date_str.split('/')[1])
     
     if month == 1: 
         return []
@@ -79,3 +104,10 @@ def generatePrevMonthList(date_str):
         elif i == 10: list_date.append(f'10/{year}')
         else: list_date.append(f'0{i}/{year}')
     return list_date
+
+def getQuarter(current_month):
+    current_quarter = ''
+    for i in range(0,4):
+        if current_month in [1 + 3*i,2 + 3*i,3 + 3*i]:
+            current_quarter = i+1
+    return current_quarter
