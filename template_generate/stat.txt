@@ -1,8 +1,0 @@
-- View 1 chỉ tiêu: 10000 record
-- View cụm 1 chỉ tiêu:
-    + Tổng quan: 2000 record
-    + Chi Tiết: 2000 record
-    + hỏi để biết thêm thông tin của mẹ: 2000 record
-- View Cross: 4000 record
-- View Stat:
-    
