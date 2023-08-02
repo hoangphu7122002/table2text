@@ -14,4 +14,3 @@
         + View 1 chỉ tiêu: 2000 record
         + View cụm chỉ tiêu: 2000 record
 - View tổng công ty: 1000 record
-    
