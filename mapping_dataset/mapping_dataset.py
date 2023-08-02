@@ -363,7 +363,8 @@ def mappingChildInferenceMom(timeFind="",company="",kpi="",index=None):
                         .replace('<năm>',year)
     if index == 1:
         if month == "1":
-            template = template.replace(' Trong cùng năm, chỉ tiêu này có số lần không đạt là len([D]), số KPI lần là len([C]) và dự đoán tháng tiếp theo có thể <dự đoán đạt/không đạt>.','')
+            template = template.replace('Trong cùng năm, chỉ tiêu này có số KPI không đạt là len([D]), số KPI đạt là len([C]) và dự đoán tháng tiếp theo có thể <dự đoán đạt/không đạt>','')
+            template = template.replace('với mức kết quả là: <dự đoán KPI>%','')
             return template
         else:
             listDate = helperFunction.generatePrevMonthList(timeFind)
@@ -382,9 +383,10 @@ def mappingChildInferenceMom(timeFind="",company="",kpi="",index=None):
             
             #==================can improve better==================
             res,eval = helperFunction.predictNextMonth(listKPIDat,listKPIKoDat)
+            res = round(float(res),2)
             template =  template.replace('len([D])',str(len(listKPIKoDat))) \
                                 .replace('len([C])',str(len(listKPIDat))) \
-                                .replace('<dự đoán đạt/không đạt>',eval)\
+                                .replace('<dự đoán đạt/không đạt>',str(eval))\
                                 .replace('<dự đoán KPI>',str(res))
 
     return template            
@@ -491,7 +493,7 @@ def mappingCrossView(timeFind,company="",kpi=""):
                                 .replace('<quý>',quarter) \
                                 .replace('<năm>',year) \
                                 .replace('<đơn vị>',unit) \
-                                .replace('<tổng công ty>',company) \
+                                .replace('<tổng công ty>',company).replace('<tên tổng công ty>',company) \
                                 .replace('<hiện trạng KPI tháng>',str(monthKPI)) \
                                 .replace('<hiện trạng KPI quý>',str(quarterKPI)) \
                                 .replace('<hiện trạng KPI năm>',str(yearKPI)) \
@@ -713,11 +715,12 @@ def mappingViewExplainResult(timeFind,company="",kpi=""):
     template = trend_kpiView.genViewExplainResult(index)
     template =  template.replace('<tháng>',str(month)) \
                         .replace('<năm>',str(year)) \
-                        .replace('<tên chỉ tiêu>',kpi) \
+                        .replace('<tên chỉ tiêu>',kpi).replace('<chỉ tiêu>',kpi) \
                         .replace('<hiện trạng KPI tháng>',str(kpiNow)) \
                         .replace('<đơn vị>',unit) \
                         .replace('len([A])',str(len(timeList))) \
-                        .replace('<kết quả dự báo>',str(res))
+                        .replace('<kết quả dự báo>',str(res)) \
+                        .replace('<tên tổng công ty>',str(company)).replace('<tổng công ty>',str(company))
     return template
     
 dict_map_view = {

@@ -96,7 +96,7 @@ def genViewPredictMonthBefore():
 def genViewPredictYearSeasonBefore():
     index_detail = random.choice([0,1])
     listViewPredictMonthBefore = [
-        f"""dựa vào trong <tháng> của len([D]) năm gần nhất tính đến năm <năm>, chỉ tiêu <tên chỉ tiêu> của tổng công ty <tên tổng công ty> được dự báo đạt được mốc KPI là <kết quả dự báo><đơn vị> trong tháng {genAdv2()}. Kết quả này dự đoán sẽ được đánh giá <đạt/không đạt quý> so với mục tiêu KPI quý <quý> {genDetail2(index_detail)} và so với mục tiêu KPI của năm {genDetail3(index_detail)} được đánh giá là <đạt/không đạt năm>.""",
+        f"""dựa vào tháng <tháng> của len([D]) năm gần nhất tính đến năm <năm>, chỉ tiêu <tên chỉ tiêu> của tổng công ty <tên tổng công ty> được dự báo đạt được mốc KPI là <kết quả dự báo><đơn vị> trong tháng {genAdv2()}. Kết quả này dự đoán sẽ được đánh giá <đạt/không đạt quý> so với mục tiêu KPI quý <quý> {genDetail2(index_detail)} và so với mục tiêu KPI của năm {genDetail3(index_detail)} được đánh giá là <đạt/không đạt năm>.""",
     ]
     
     return random.choice(listViewPredictMonthBefore)
