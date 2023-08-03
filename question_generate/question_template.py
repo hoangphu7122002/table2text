@@ -113,7 +113,7 @@ def genComp():
         f"của tổng công ty <tổng công ty>",
         f"của <tổng công ty>",
         f"do <tổng công ty> quản lý",
-        f"được quản lý bởi tổng công ty <tổng công ty>"
+        f"được quản lý bởi tổng công ty <tổng công ty>",
         f"được <tổng công ty> điều hành",
         f"liên quan <tổng công ty>",
         f"",
@@ -248,7 +248,7 @@ def genDesOverall():
         f"{genVision()} {genOverall()} các chỉ tiêu con của {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genComp()}",
         f"{genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> có {genOverall()} về các chỉ tiêu con {genPostfixGroup()}",
         f"{genOverall()} các chỉ tiêu thuộc về {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genComp()}",
-        f"liệt kê {genOverall()} hơn về các chỉ tiêu trong {genPharaCum()} chỉ tiêu <tên chỉ tiêu> {genComp()}",
+        f"liệt kê {genOverall()} hơn về các chỉ tiêu trong {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genComp()}",
         f"{genVision()} {genOverall()} của {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genPostfixGroup()}",
         f"{genVision()} {genOverall()} {genPostfixGroup()} về {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genComp()}",
     ]
@@ -584,12 +584,12 @@ def genDescSeason():
 
 def genSeason():
     listSeason = [
-        f"trong <năm> năm {genDescSeason()} của tháng <tháng>, chỉ tiêu <tên chỉ tiêu> có {genCheck()} {genPostfixGroup()}",
-        f"chỉ tiêu <tên chỉ tiêu> được đánh giá trong <năm> năm {genDescSeason()} của tháng <tháng> có {genCheck()} {genPosfix()}",
-        f"vào tháng <tháng> của <năm> năm {genDescSeason()}, kết quả của chỉ tiêu <tên chỉ tiêu> {genPosfix()}",
+        f"trong <năm-m> năm {genDescSeason()} của tháng <tháng>, chỉ tiêu <tên chỉ tiêu> có {genCheck()} {genPostfixGroup()}",
+        f"chỉ tiêu <tên chỉ tiêu> được đánh giá trong <năm-m> năm {genDescSeason()} của tháng <tháng> có {genCheck()} {genPosfix()}",
+        f"vào tháng <tháng> của <năm-m> năm {genDescSeason()}, kết quả của chỉ tiêu <tên chỉ tiêu> {genPosfix()}",
         f"tính từ <tháng> với các năm từ 2020 đến <năm>, chỉ tiêu <tên chỉ tiêu> được đánh giá {genPostfixGroup()}"
         f"{genVision()} chỉ tiêu <tên chỉ tiêu> tính từ <tháng> với các năm từ 2020 đến <năm> {genPostfixGroup()}",
-        f"{genRes1()} của chỉ tiêu <tên chỉ tiêu> trong <năm> năm {genDescSeason()} của tháng <tháng>"
+        f"{genRes1()} của chỉ tiêu <tên chỉ tiêu> trong <năm-m> năm {genDescSeason()} của tháng <tháng>"
     ]
     
     return random.choice(listSeason)
@@ -671,9 +671,9 @@ def genDescNextMonth():
 
 def genDescSeason1():
     listDescSeason = [
-        f", trong <năm> năm {genDescSeason()} của tháng <tháng>",
+        f", trong <năm-m> năm {genDescSeason()} của tháng <tháng>",
         f", tính từ <tháng> với các năm từ 2020 đến <năm>",
-        f", vào tháng <tháng> của <năm> năm {genDescSeason()}",
+        f", vào tháng <tháng> của <năm-m> năm {genDescSeason()}",
     ]
     
     return random.choice(listDescSeason)
@@ -1036,9 +1036,9 @@ def genPoint():
 
 def genExplainGroup():
     listExplainGroup = [
-        f"và {genPoint()} {genChiTieu()} nhận được giá trị này",
-        f"và giá trị này do {genChiTieu()} {genPoint()}",
-        f"{genPoint()} {genChiTieu()} khiến điều này xảy ra"
+        f"và {genPoint()} tên chỉ tiêu nhận được giá trị này",
+        f"và giá trị này do chỉ tiêu {genPoint()}",
+        f"{genPoint()} chỉ tiêu nào khiến điều này xảy ra"
     ]    
 
     return random.choice(listExplainGroup)
