@@ -1,4 +1,7 @@
-import question_template
+try:
+    import question_template
+except:
+    from question_generate import question_template
 import pickle
 import random
 import numpy as np
@@ -42,16 +45,6 @@ def listingGroupKPI(loaded_dict,company='VTPOST',kpi_mom='Tỷ lệ xử lý ph�
         if comp == kpi_mom: 
             listOneKPI.append(oneKPI)
     return listOneKPI
-
-def convertKeyToIndexDict(dictRes):
-    keyList = list(dictRes.keys())
-    dictKey = dict()
-    for index,ele in enumerate(keyList):
-        dictKey[index] = ele
-    return dictKey
-
-def convertIndex(idx,len_):
-    return len_ + idx
 #==================Util function===================
 
 def mappingQuesOneKPI(timeFind,view="",company="",kpi=""):
@@ -112,7 +105,7 @@ def mappingGroupKPIOverall(timeFind,view="",company="",groupKPI=""):
 
     return templateGen
 
-def mappingGroupKPIDetail(timeFind,view="",company="",groupKPI=""):
+def mappingGroupKPIDetail(timeFind,view="",company="",groupKPI="",index=None):
     ##for test:
     if view == "":
         view = random.choice(["month","quarter","year"])
@@ -121,10 +114,11 @@ def mappingGroupKPIDetail(timeFind,view="",company="",groupKPI=""):
     if groupKPI == "":
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
-        
+    if index == None:
+        index = random.choice([*range(3)])
     #############
     #get template
-    templateGen = question_template.genGroupKPIDetail(view)
+    templateGen = question_template.genGroupKPIDetail(view,index)
     templateGen = helperFunction.postProcessOutput(templateGen)
     
     #mapping data
@@ -150,7 +144,7 @@ def mappingInferenceMom(timeFind,company="",groupKPI="",kpi="",index=None):
         groupKPI = random.choice(list(parentSet))
         kpi = random.choice(listingGroupKPI(loaded_dict,company,groupKPI))
     if index == None:
-        index = random.choice([*range(3)])
+        index = random.choice([*range(2)])
     
     #############
     #get template
@@ -229,7 +223,7 @@ def mappingQuesTongcongTy(timeFind,view="",company="",kpi=""):
 
     return templateGen
 
-def mappingTrendStat(timeFind,company="",kpi=""):
+def mappingTrendStat(timeFind,company="",kpi="",choice=""):
     ##for test:
     if company == "":
         company = random.choice(["VTS","VTT","VDS","VTPOST"])
@@ -237,6 +231,8 @@ def mappingTrendStat(timeFind,company="",kpi=""):
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
         kpi = random.choice(listingGroupKPI(loaded_dict,company,groupKPI))
+    if choice == "":
+        choice = random.choice(['season','monthBefore'])
     #############
     #get template
     templateGen = question_template.genQuesTrendStat()
@@ -259,19 +255,21 @@ def mappingTrendStat(timeFind,company="",kpi=""):
 
     return templateGen
     
-def mappingTrendPredict(timeFind,company="",kpi=""):
+def mappingTrendPredict(timeFind,company="",kpi="",choice=""):
     if company == "":
         company = random.choice(["VTS","VTT","VDS","VTPOST"])
     if kpi == "":
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
         kpi = random.choice(listingGroupKPI(loaded_dict,company,groupKPI))
+    if choice == "":
+        choice = random.choice(['season','monthBefore'])
     #############
     dataset = loaded_dict[timeFind]['month'][company][kpi]
     unit = dataset["ĐƠN VỊ"]
     
     #get template
-    templateGen = question_template.genQuesTrendPredict()
+    templateGen = question_template.genQuesTrendPredict(choice)
     templateGen = helperFunction.postProcessOutput(templateGen)
     
     #mapping data

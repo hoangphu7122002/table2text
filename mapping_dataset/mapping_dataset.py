@@ -1,6 +1,9 @@
 import pickle
 import random
-import helperFunction
+try:
+    import helperFunction
+except:
+    import mapping_dataset.helperFunction
 import numpy as np
 
 localHost = 'C://Users//Administrator//Desktop//largeProject//template_generate//'
@@ -197,7 +200,7 @@ def mappingGroupMonthOverall(timeFind,view="",company="",groupKPI="",index = Non
     if groupKPI == "":
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
-        kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
+    kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
     #đưa về trường hợp đặc biệt
     if len(kpiList) == 1:
         dataset = loaded_dict[timeFind][view][company][kpiList[0]]
@@ -253,7 +256,7 @@ def mappingGroupMonthDetail(timeFind,view="",company="",groupKPI="",index = None
     if groupKPI == "":
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
-        kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
+    kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
     #đưa về trường hợp đặc biệt
     if len(kpiList) == 1:
         dataset = loaded_dict[timeFind][view][company][kpiList[0]]
@@ -338,9 +341,9 @@ def mappingChildInferenceMom(timeFind="",company="",kpi="",index=None):
     ############## 
     
     month = timeFind.split('/')[0][1:]
-    print(month)
+    # print(month)
     year = timeFind.split('/')[1]
-    print(year)
+    # print(year)
     
     if unit != "%":
         unit = ' ' + unit
@@ -590,8 +593,8 @@ def mappingViewPredict(timeFind,company="",kpi="",choice=""):
     quarter = helperFunction.getQuarter(month)
     
     resPredict = round(helperFunction.predictView(groupKPIVal),2)
-    quarterDataset = loaded_dict[timeEle]['quarter'][company][kpi]
-    yearDataset = loaded_dict[timeEle]['year'][company][kpi]
+    quarterDataset = loaded_dict[timeFind]['quarter'][company][kpi]
+    yearDataset = loaded_dict[timeFind]['year'][company][kpi]
     
     targetQuarter = quarterDataset[list(quarterDataset.keys())[5]]
     targetYear = yearDataset[list(yearDataset.keys())[5]]
@@ -811,7 +814,7 @@ def mappingViewOneGroupKPIStat(timeFind,view="",company="",groupKPI="",choose=""
     if groupKPI == "":
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
-        kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
+    kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
     if choose == "":
         choose = random.choice(["mean","max","min"])
     
