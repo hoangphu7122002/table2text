@@ -613,10 +613,10 @@ def genTrendStat(choice=""):
     if choice == "monthBefore": return genMonthBefore()
     return genSeason()
 
-def genQuesTrendStat():
+def genQuesTrendStat(choice=""):
     listQuesTongCongTy = [
-        f"{genPrefixQuestion()} {genComp()} {genTrendStat()}?",
-        f"{genPrefixQuestion()} {genTrendStat()} {genComp()}?"
+        f"{genPrefixQuestion()} {genComp()} {genTrendStat(choice)}?",
+        f"{genPrefixQuestion()} {genTrendStat(choice)} {genComp()}?"
     ]
     
     return random.choice(listQuesTongCongTy)
@@ -722,10 +722,10 @@ def genTrendPredict(choice=""):
     if choice == "season": return genTrendPredictSeason()
     return genTrendPredictNextMonth()
 
-def genQuesTrendPredict():
+def genQuesTrendPredict(choice=""):
     listQuesTrendPredict = [
-        f"{genPrefixQuestion()} {genTrendPredict()}?",
-        f"{genPrefixQuestion()} {genTrendPredict()}?"
+        f"{genPrefixQuestion()} {genComp()} {genTrendPredict(choice)}?",
+        f"{genPrefixQuestion()} {genTrendPredict(choice)} {genComp()}?"
     ]
     
     return random.choice(listQuesTrendPredict)    
