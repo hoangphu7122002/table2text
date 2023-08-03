@@ -753,7 +753,7 @@ def mappingViewOneKPIStat(timeFind,view = "",company="",kpi="",choose=""):
     timeList = helperFunction.generatePrevMonthList(timeFind)
     if len(timeList) <= 1:
         return f"chỉ tiêu {kpi} tính đến {timeFind} chưa đủ dữ kiện để giải trình, điều kiện cần là tháng hiện tại >= 2 để xài chức năng này"
-    timeList = helperFunction.generatePrevMonthList(timeFind)
+    timeList.append(timeFind)
     unit=""
     condition=""
     groupKPIVal = []
@@ -782,10 +782,14 @@ def mappingViewOneKPIStat(timeFind,view = "",company="",kpi="",choose=""):
     resCompute = round(resCompute,2)
     if unit != "%":
         unit = ' ' + unit
+  
+    lenA = len(timeList)
+    if view == "quarter": lenA = quarter
+    if view == "year": lenA = 1
         
     template =  template.replace('<tên chỉ tiêu>',kpi) \
                         .replace('<tổng công ty>',company) \
-                        .replace('len([A])',str(len(timeList))) \
+                        .replace('len([A])',str(lenA)) \
                         .replace('<đơn vị>',unit) \
                         .replace('<tháng>',str(month)) \
                         .replace('<quý>',str(quarter)) \

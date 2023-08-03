@@ -180,7 +180,7 @@ def genMean(index=None):
 def genMinMaxDesc(index=None,flagMinMax=None):
     listMinMaxDesc = [
         f"có KPI {genMinMax(flagMinMax)} đạt được là <KPI-m><đơn vị> là chỉ tiêu <tên chỉ tiêu-m>",
-        f"<tên chỉ tiêu> là chỉ tiêu đạt trạng thái KPI {genMinMax(flagMinMax)} {genDescDetail(index)} trong cụm chỉ tiêu <tên cụm chỉ tiêu>"
+        f"có <tên chỉ tiêu> là chỉ tiêu đạt trạng thái KPI {genMinMax(flagMinMax)} {genDescDetail(index)}"
     ]
     
     if index is None:
@@ -199,7 +199,7 @@ def genViewOneGroupKPIStat(index=None,indexView=None,flagMeanMM=None,flagMinMax=
         milestone = genMinMaxDesc(index,flagMinMax)
     listOneGroupKPIStat = [
         f"Cụm chỉ tiêu <tên cụm chỉ tiêu> {genDescCompany()} trong {genChooseView(indexStyle,indexView)} {milestone}",
-        f"Vào {genChooseView(indexStyle,indexView)}, {milestone} {genDescCompany()}.",
+        f"Vào {genChooseView(indexStyle,indexView)}, cụm chỉ tiêu <tên cụm chỉ tiêu> {milestone} {genDescCompany()}.",
     ]
     
     if index is None:

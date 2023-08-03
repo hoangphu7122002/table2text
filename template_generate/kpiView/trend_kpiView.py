@@ -159,8 +159,8 @@ def genDescTrend(index = None):
 ##(có kết quả dự báo là <kết quả dự báo><đơn vị>|)
 def genDetail2(index=None):
     listDetail2 = [
-        "có kết quả dự báo tháng tiếp theo là <kết quả dự báo><đơn vị>",
-        ""
+        "có kết quả dự báo tháng tiếp theo là <kết quả dự báo><đơn vị> và",
+        "thì"
     ]
     if index is None:
         return random.choice(listDetail2)
@@ -170,7 +170,7 @@ def genDetail2(index=None):
 ################################################
 def genViewDetermineTrend(index1=None,index2=None):
     listViewDetermineTrend = [
-        f"dựa vào kết quả hiện có tính đến {genMonthDesc()} của chỉ tiêu <tên chỉ tiêu> {genDetail2()} và trend hiện có xu hướng {genDescTrend(index1)} {genLevelTrend(index2)}"
+        f"dựa vào kết quả hiện có tính đến {genMonthDesc()} của chỉ tiêu <tên chỉ tiêu> {genDetail2()} trend hiện có xu hướng {genDescTrend(index1)} {genLevelTrend(index2)}"
     ]
     return random.choice(listViewDetermineTrend)
 #==============ViewDetermineTrend==============

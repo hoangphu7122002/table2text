@@ -491,7 +491,7 @@ def genCross():
         f"so sánh {genRes1()} nhận được của {genDescMonthQuarter()} với chỉ tiêu <tên chỉ tiêu>",
         f"so sánh {genRes1()} nhận được của chỉ tiêu <tên chỉ tiêu> trong {genDescMonthQuarter()}",
         f"{genRes1()} tháng của chỉ tiêu <tên chỉ tiêu> khác gì so với quý",
-        f"{genRes1()} của quý mà chỉ tiêu <tên chỉ tiêu> khác nhau {genPostfixGroup()} so với tháng",
+        f"{genRes1()} của quý mà chỉ tiêu <tên chỉ tiêu> {genDiffer()} {genPostfixGroup()} so với tháng",
         f"liệu cả {genDescMonthQuarter()} của chỉ tiêu <tên chỉ tiêu> có cùng {genRes()} hay không",
         f"có {genStrange()} nào khi so sánh của kết quả {genDescMonthQuarter()} của chỉ tiêu <tên chỉ tiêu> hay không",
         f"cả {genDescMonthQuarter()} đều nhận được {genRes1()} {genRes()} của chỉ tiêu <tên chỉ tiêu> hay không",
@@ -631,7 +631,8 @@ def genDescPredict():
         "dự định",
         "uớc tính",
         "dự liệu",
-        "ước lượng"
+        "ước lượng",
+        "dự kiến"
     ]
     
     return random.choice(listDescPredict)
@@ -731,8 +732,389 @@ def genQuesTrendPredict():
 #=================TrendPredict=================
 
 #=================ExplainResult================
+def genHistory():
+    listHistory = [
+        'lịch sử',
+        'lược sử',
+        'quá khứ',
+        'từ thời gian đã qua'
+    ]
+    
+    return random.choice(listHistory)
 
+def genMonthNow():
+    listMonthNow = [
+        'tháng này',
+        'tháng hiện tại',
+        'trong tháng này',
+        'tháng này',
+        'hiện tại trong tháng',
+        'tháng đấy'
+    ]
+    
+    return random.choice(listMonthNow)
+
+def genReason():
+    listReason = [
+        'nguyên nhân',
+        'nguyên do',
+        'lí do',
+        'điều kiện gây ra',
+    ]
+    
+    return random.choice(listReason)
+
+def genCompare():
+    listCompare = [
+        'giải trình',
+        'giải thích',
+        'so sánh',
+        'đối chiếu'
+    ]
+    
+    return random.choice(listCompare)
+
+def genDiffer():
+    listDiffer = [
+        'chênh lệch',
+        'khác biệt',
+        'khác nhau',
+        'khác',
+        'khác xa'
+    ]
+    
+    return random.choice(listDiffer)
+
+def genChiTieu():
+    listChiTieu = [
+        'chỉ tiêu <tên chỉ tiêu>',
+        'cho <tên chỉ tiêu>'
+    ]
+    
+    return random.choice(listChiTieu)
+
+def genReal():
+    listReal = [
+        'thực tế',
+        'hiện tại',
+        'hiện thực',
+    ]
+    
+    return random.choice(listReal)
+
+def genExplainResult():
+    listExplainResult = [
+        f'với dữ liệu {genHistory()} từ các tháng trước trong năm, liệu {genMonthNow()} có KPI {genDiffer()} {genDescPredict()} {genChiTieu()} là bao nhiêu được không',
+        f'{genRes1()} kì vọng (từ dữ liệu {genHistory()}) và {genReal()} của KPI {genChiTieu()} {genMonthNow()} {genPostfixGroup()}',
+        f'{genDescPredict()} (từ dữ liệu {genHistory()}) KPI của {genMonthNow()} và {genReal()} KPI đạt được {genChiTieu()} là {genPostfixGroup()}',
+        f'{genReal()} với kì vọng {genDescPredict()} của {genChiTieu()} {genMonthNow()} {genPostfixGroup()}',
+        f'{genCompare()} giúp tui {genRes1()} {genMonthNow()} {genChiTieu()} liệu có ảnh hưởng bởi {genReason()} nào đấy không',
+        f'KPI {genReal()} của {genMonthNow()} so với KPI {genDescPredict()} {genChiTieu()} {genDiffer()} bao xa {genPostfixGroup()}',
+        f'liệu KPI của {genMonthNow()} {genChiTieu()} có {genDiffer()} lớn so với {genDescPredict()} dựa trên dữ liệu lược sử từ các tháng trước không',
+        f'hãy {genCompare()} {genDescPredict()} KPI và KPI {genReal()} đạt được {genChiTieu()} trong {genMonthNow()}',
+        f'vui lòng {genCompare()} liệu {genRes1()} {genMonthNow()} {genChiTieu()} có bị ảnh hưởng bởi {genReason()} cụ thể nào không',
+        f'{genCompare()} KPI {genReal()} của {genChiTieu()} {genMonthNow()} với KPI {genDescPredict()} và xem {genDiffer()} là bao nhiêu'
+    ]
+    
+    return random.choice(listExplainResult)
+
+def genQuesExplainResult():
+    listQuesTongCongTy = [
+        f"{genDesView('month')} {genPrefixQuestion()} {genExplainResult()}?",
+        f"{genPrefixQuestion()} trong {genDesView('month')} {genExplainResult()}?",
+        f"{genPrefixQuestion()} {genExplainResult()} trong {genDesView('month')}?"
+    ]
+    
+    return random.choice(listQuesTongCongTy)
 #=================ExplainResult================
 
+#=================DetermineTrend===============
+def genTrend():
+    listTrend = [
+        'trend',
+        'xu hướng',
+        'định hướng',
+        'khuynh hướng',
+        'tendency',
+    ]
+    
+    return random.choice(listTrend)
+
+def genStable():
+    listOnDinh = [
+        'ổn định',
+        'ổn thoả',
+        'đồng đều',
+        'bình ổn',
+        'không thay đổi quá nhiều'
+    ]
+    
+    return random.choice(listOnDinh)
+
+def genVolality():
+    listBienDong = [
+        'biến động',
+        'bất thường',
+        'thay đổi quá nhiều',
+        'thất thường',
+        'dao động',
+        'biến đổi cao'
+    ]
+    
+    return random.choice(listBienDong)
+
+def genChange():
+    listChange = [
+        'tăng hay giảm',
+        'sự thay đổi',
+        'sự biến đổi',
+        'giảm hoặc tăng',
+        'tăng hoặc giảm',
+        'giảm hay tăng'
+    ]
+    
+    return random.choice(listChange)
+
+def genCan():
+    listCan = [
+        'có thể',
+        'có khả năng',
+        ''
+    ]
+    
+    return random.choice(listCan)
+
+def genDetermine():
+    listDetermine = [
+        'xác định',
+        'nhận định',
+        'định hình',
+        'định lượng',
+        'quyết định'
+    ]
+    
+    return random.choice(listDetermine)
+
+def genThoiDiem():
+    listThoiDiem = [
+        'thời điểm này',
+        'này',
+        'giai đoạn này',
+        'lần này',
+        'thời gian này'
+    ]
+    
+    return random.choice(listThoiDiem)
+
+def genDetermineTrend():
+    listDetermineTrend = [
+        f'{genCan()} {genDetermine()} được mức tăng chậm hay nhanh {random.choice(["hay là giảm",""])} của {genChiTieu()} trong giai đoạn hiện tại không',
+        f'{genTrend()} của {genChiTieu()} là gì',
+        f'{genTrend()} {genChiTieu()} {genThoiDiem()} có {genStable()} có {genVolality()} nào không',
+        f'{genDescPredict()} {genTrend()} của {genChiTieu()} sẽ tiếp tục tăng chậm hay có sự thay đổi trong {genThoiDiem()}',
+        f'{genCan()} {genDetermine()} được sự {genStable()} hay {genVolality()} của {genTrend()} {genChiTieu()}',
+        f'{genDescPredict()} liệu {genTrend()} của {genChiTieu()} sẽ tiếp tục tăng chậm hay có sự {genVolality()} trong {genThoiDiem()}',
+        f'{genChange()} là {genTrend()} của {genChiTieu()} ở {genThoiDiem()}',
+        f'{genChiTieu()} ở {genThoiDiem()} có {genTrend()} {genChange()}'
+    ]
+    
+    return random.choice(listDetermineTrend)
+
+def genQuesDetermineTrend():
+    listQuesDetermineTrend = [
+        f"{genDesView('month')} {genDetermineTrend()} {genExplainResult()}?",
+        f"{genPrefixQuestion()} trong {genDesView('month')} {genDetermineTrend()}?",
+        f"{genPrefixQuestion()} {genDetermineTrend()} trong {genDesView('month')}?"
+    ]
+    
+    return random.choice(listQuesDetermineTrend)
+#=================DetermineTrend===============
+
+#=================Stat1KPI===================
+def genMean():
+    listMean = [
+        'mean',
+        'trung bình',
+        'bình quân',
+        'giá trị trung bình',
+        'trung bình cộng'
+    ]
+    
+    return random.choice(listMean)
+
+def getMin():
+    listMin = [
+        'giá trị nhỏ nhất',
+        'min',
+        'giá trị bé nhất',
+        'giá trị tối thiểu',
+        'giá trị thấp nhất'
+    ]
+
+    return random.choice(listMin)
+
+def getMax():
+    listMax = [
+        'giá trị lớn nhất',
+        'max',    
+        'giá trị tối đa'
+    ]
+    
+    return random.choice(listMax)
+
+def genMeanQues():
+    listMeanQues = [
+        f'{genMean()} KPI đạt được của {genChiTieu()} tính tới {genThoiDiem()} là bao nhiêu',
+        f'{genChiTieu()} có được {genMean()} là bao nhiêu tính tới {genThoiDiem()}',
+        f'{genChiTieu()} tính đến {genThoiDiem()} có {genMean()} là bao nhiêu',
+        f'{genMean()} KPI đạt được đến {genThoiDiem()} của {genChiTieu()}',
+        f'đến {genThoiDiem()} {genMean()} {genChiTieu()} đạt được là bao nhiêu'
+    ]
+    
+    return random.choice(listMeanQues)
+
+def genExplain2():
+    listExplain = [
+        f"cho {genDesPerson()} biết thêm {genRes1()} KPI {genDescPredict()}",
+        f"cũng như {genRes1()} {genDescPredict()} KPI là"
+    ]
+    
+    return random.choice(listExplain)
+
+def genMaxQues():
+    explain = random.choice(['',genExplain2()])
+    listMaxQues = [
+        f'{getMax()} KPI đạt được của {genChiTieu()} tính tới {genThoiDiem()} là bao nhiêu {explain}',
+        f'{genChiTieu()} có được {getMax()} là bao nhiêu tính tới {genThoiDiem()} {explain}',
+        f'{genChiTieu()} tính đến {genThoiDiem()} có {getMax()} là bao nhiêu {explain}',
+        f'{getMax()} KPI đạt được đến {genThoiDiem()} của {genChiTieu()} {explain}',
+        f'đến {genThoiDiem()} {getMax()} {genChiTieu()} đạt được là bao nhiêu {explain}'
+    ]
+    
+    return random.choice(listMaxQues)
+
+def genMinQues():
+    explain = random.choice(['',genExplain2()])
+    
+    listMinQues = [
+        f'{getMin()} KPI đạt được của {genChiTieu()} tính tới {genThoiDiem()} là bao nhiêu {explain}',
+        f'{genChiTieu()} có được {getMin()} là bao nhiêu tính tới {genThoiDiem()} {explain}',
+        f'{genChiTieu()} tính đến {genThoiDiem()} có {getMin()} là bao nhiêu {explain}',
+        f'{getMin()} KPI đạt được đến {genThoiDiem()} của {genChiTieu()} {explain}',
+        f'đến {genThoiDiem()} {getMin()} {genChiTieu()} đạt được là bao nhiêu {explain}'
+    ]
+    
+    return random.choice(listMinQues)
+    
+def genStat1KPI(choice):
+    if choice == "max": return genMaxQues()
+    elif choice == "min" : return genMinQues()
+    return genMeanQues()
+
+def genQuesStat1KPI(view = None,choice=""):
+    if choice == "":
+        choice = random.choice(["min","max","mean"])
+    listQuesStat1KPI = [
+        f"{genDesView(view)} {genPrefixQuestion()} {genStat1KPI(choice)}?",
+        f"{genPrefixQuestion()} trong {genDesView(view)} {genStat1KPI(choice)}?",
+        f"{genPrefixQuestion()} {genStat1KPI(choice)} trong {genDesView(view)}?"
+    ]
+    
+    return random.choice(listQuesStat1KPI)
+#=================Stat1KPI===================
+
+#=================StatGroupKPI===============
+def genPoint():
+    listPoint = [
+        "chỉ ra",
+        "nêu ra",
+        "đề cập",
+        "đưa ra",
+    ]
+    
+    return random.choice(listPoint)
+
+def genExplainGroup():
+    listExplainGroup = [
+        f"và {genPoint()} {genChiTieu()} nhận được giá trị này",
+        f"và giá trị này do {genChiTieu()} {genPoint()}",
+        f"{genPoint()} {genChiTieu()} khiến điều này xảy ra"
+    ]    
+
+    return random.choice(listExplainGroup)
+
+def genStatGroupMax():
+    explain = random.choice(['',genExplainGroup()])
+    
+    listStatGroupMax = [
+        f"{getMax()} {genCumChiTieu()} {genEarn()} {genPostfixGroup()}",
+        f"{genCumChiTieu()} {genEarn()} {getMax()} {genPostfixGroup()}",
+        f"giá trị {getMax()} của {genCumChiTieu()} {genEarn()} {genPostfixGroup()}",
+        f"{genThoiDiem()} {genCumChiTieu()} {genEarn()} {getMax()} {genPostfixGroup()}"
+    ]
+    
+    return random.choice(listStatGroupMax) + ' ' + explain
+
+def genStatGroupMin():
+    explain = random.choice(['',genExplainGroup()])    
+    
+    listStatGroupMin = [
+        f"{getMin()} {genCumChiTieu()} {genEarn()} {genPostfixGroup()}",
+        f"{genCumChiTieu()} {genEarn()} {getMin()} {genPostfixGroup()}",
+        f"giá trị {getMin()} của {genCumChiTieu()} {genEarn()} {genPostfixGroup()}",
+        f"{genThoiDiem()} {genCumChiTieu()} {genEarn()} {getMin()} {genPostfixGroup()}"
+    ]
+    
+    return random.choice(listStatGroupMin) + ' ' + explain
+
+def genCumChiTieu():
+    listCumChiTieu = [
+        "cụm chỉ tiêu <tên cụm chỉ tiêu>",
+        "của cụm chỉ tiêu <tên cụm chỉ tiêu>",
+        "do cụm chỉ tiêu <tên cụm chỉ tiêu>",
+        "vớI <tên cụm chỉ tiêu>"
+    ]
+    
+    return random.choice(listCumChiTieu)
+
+def genEarn():
+    listEarn = [
+        "nhận được",
+        "đạt được",
+        "có được",
+        "thu được",
+        "có"
+    ]
+    
+    return random.choice(listEarn)
+
+def genStatGroupMean():
+    listStatGroupMean = [
+        f"{genMean()} {genCumChiTieu()} {genEarn()} {genPostfixGroup()}",
+        f"{genCumChiTieu()} {genEarn()} {genMean()} {genPostfixGroup()}",
+        f"giá trị {genMean()} của {genCumChiTieu()} {genEarn()} {genPostfixGroup()}",
+        f"{genThoiDiem()} {genCumChiTieu()} {genEarn()} {genMean()} {genPostfixGroup()}"
+    ]   
+    
+    return random.choice(listStatGroupMean)
+
+def genStatGroupKPI(choice):
+    if choice == "max": return genStatGroupMax()
+    if choice == "mean": return genStatGroupMean()
+    return genStatGroupMin()
+
+def genQuesStatGroupKPI(view = None,choice=""):
+    if choice == "":
+        choice = random.choice(["min","max","mean"])
+    listQuesStatGroupKPI = [
+        f"{genDesView(view)} {genPrefixQuestion()} {genStatGroupKPI(choice)}?",
+        f"{genPrefixQuestion()} trong {genDesView(view)} {genStatGroupKPI(choice)}?",
+        f"{genPrefixQuestion()} {genStatGroupKPI(choice)} trong {genDesView(view)}?"   
+    ]
+    
+    return random.choice(listQuesStatGroupKPI)
+    
+#=================StatGroupKPI===============
+
 if __name__ == "__main__":
-    print(genQuesTrendPredict())
+    print(genQuesStatGroupKPI())
