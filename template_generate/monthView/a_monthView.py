@@ -122,7 +122,7 @@ def genOneKPI(sign=1,ratio=1,index=None):
         "có kết quả là <hiện trạng KPI><đơn vị>", #View ngắn gọn
         f"với hiện trạng có kết quả là <hiện trạng KPI><đơn vị>, {genDiffDesc(sign)} <Độ tăng giảm so với KPIs mục tiêu><đơn vị> so với mục tiêu KPI là <mục tiêu KPI><đơn vị>", #View bao quát - bằng delta
         f"chỉ tiêu hiện đã {genRatioDesc(ratio)} <Tỉ lệ so với KPIs mục tiêu> lần so với mục tiêu KPI ban đầu {genDetailTarget()}", #View bao quát - bằng tỉ lệ
-        f"khi KPI {genMonthKPIDesc()} là <hiện trạng KPI><đơn vị> {genDescribeTarget()} đề ra là <mục tiêu KPI><đơn vị> {genDetailKPIMonth()}" #View chi tiết
+        f"khi KPI {genMonthKPIDesc()} là <hiện trạng KPI><đơn vị> {genDescribeTarget()} đề ra là <mục tiêu KPI><đơn vị> {genDetailKPIMonth(sign,ratio)}" #View chi tiết
     ]
     
     if index is None:

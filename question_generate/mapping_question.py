@@ -131,7 +131,8 @@ def mappingGroupKPIDetail(timeFind,view="",company="",groupKPI="",index=None):
                                 .replace('<quý>',str(quarter)) \
                                 .replace('<năm>',str(year)) \
                                 .replace('<tên tổng công ty>',str(company)).replace('<tổng công ty>',str(company)) \
-                                .replace('<tên cụm chỉ tiêu>',str(groupKPI))
+                                .replace('<tên cụm chỉ tiêu>',str(groupKPI))\
+                                .replace('<cụm chỉ tiêu>',str(groupKPI))\
 
     return templateGen
 
@@ -286,7 +287,8 @@ def mappingTrendPredict(timeFind,company="",kpi="",choice=""):
                                 .replace('<tên tổng công ty>',str(company)).replace('<tổng công ty>',str(company)) \
                                 .replace('<tên chỉ tiêu>',str(kpi)) \
                                 .replace('<đơn vị>',unit) \
-                                .replace('<năm-m>',str(distance))
+                                .replace('<năm-m>',str(distance)) \
+                                .replace('<tháng+1>',str(month+1))
 
     return templateGen
     

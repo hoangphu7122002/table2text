@@ -900,4 +900,4 @@ def mappingCtyDescribe(timeFind,view="",company=""):
 # print(mappingCrossView('01/2020'))
 # print(mappingChildInferenceMom('02/2020'))
 # print(mappingGroupMonthDetail('01/2020',view="",company="",groupKPI="",index = 1))
-# print(mappingOneKPI('01/2020') + '.')
+print(mappingOneKPI('01/2020') + '.')

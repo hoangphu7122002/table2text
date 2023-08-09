@@ -110,12 +110,12 @@ def genDesView(view):
 
 def genComp():
     listComp = [
-        f"của tổng công ty <tổng công ty>",
-        f"của <tổng công ty>",
-        f"do <tổng công ty> quản lý",
-        f"được quản lý bởi tổng công ty <tổng công ty>",
-        f"được <tổng công ty> điều hành",
-        f"liên quan <tổng công ty>",
+        f"của tổng công ty <tên tổng công ty>",
+        f"của <tên tổng công ty>",
+        f"do <tên tổng công ty> quản lý",
+        f"được quản lý bởi tổng công ty <tên tổng công ty>",
+        f"được <tên tổng công ty> điều hành",
+        f"liên quan <tên tổng công ty>",
         f"",
         f""
     ]
@@ -281,24 +281,53 @@ def genDetail():
     
     return random.choice(listDetail)
 
+def genDat4():
+    listDat4 = [
+        'đạt',
+        'đạt',
+        'đạt',
+        'ổn',
+        'tốt',
+        'như mong đợi',
+        'hoàn thành'
+    ]
+    
+    return random.choice(listDat4)
+
 def genQuesDat():
     listQuesDat = [
-        "chỉ những chỉ tiêu đạt",
-        "với những chỉ tiêu đạt",
-        "với những chỉ tiêu đã được đánh giá là đạt",
-        "trong những chỉ tiêu đã được xác nhận là đạt",
-        "bao gồm những chỉ tiêu đạt"
+        f"chỉ những chỉ tiêu {genDat4()}",
+        f"với những chỉ tiêu {genDat4()}",
+        f"với những chỉ tiêu đã được đánh giá là {genDat4()}",
+        f"trong những chỉ tiêu đã được xác nhận là {genDat4()}",
+        f"bao gồm những chỉ tiêu {genDat4()}",
     ]
     
     return random.choice(listQuesDat)
 
+def genKoDat4():
+    listKoDat4 = [
+        'chưa đạt',
+        'không đạt',
+        'không ổn',
+        'chưa tốt',
+        'không hoàn thành',
+        'chưa hoàn thành',
+        'chưa ổn',
+        'không ổn',
+        'không như mong đợi',
+        'chưa như mong đợi'
+    ]
+    
+    return random.choice(listKoDat4)
+
 def genQuesKoDat():
     listQuesKoDat = [
-        "chỉ những chỉ tiêu không đạt",
-        "với những chỉ tiêu chưa đạt",
-        "với những chỉ tiêu đã được đánh giá là chưa đạt",
-        "trong những chỉ tiêu đã được xác nhận là không đạt",
-        "bao gồm những chỉ tiêu không đạt"
+        f"chỉ những chỉ tiêu {genKoDat4()}",
+        f"với những chỉ tiêu {genKoDat4()}",
+        f"với những chỉ tiêu đã được đánh giá là {genKoDat4()}",
+        f"trong những chỉ tiêu đã được xác nhận là {genKoDat4()}",
+        f"bao gồm những chỉ tiêu {genKoDat4()}"
     ]
 
     return random.choice(listQuesKoDat)
@@ -327,7 +356,7 @@ def genDetailQues(index=None):
     listGenQues = [
         f"{genVision()} {genDetail()} của {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genComp()}",
         f"{genVision()} {genDetail()} hơn {ques} của {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {genComp()}",
-        f"chi tiết hơn của cụm chỉ tiêu <cụm chỉ tiêu> {ques} {genComp()}",
+        f"chi tiết hơn của cụm chỉ tiêu <tên cụm chỉ tiêu> {ques} {genComp()}",
         f"thông tin {genDetail()} hơn về {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> {ques} {genComp()}",
         f"{ques} của {genPharaCum()} chỉ tiêu <tên cụm chỉ tiêu> để hiểu rõ hơn về nó",
     ]
