@@ -1,5 +1,16 @@
 import random
 
+
+def month():
+    listMonth = [
+        "tháng",
+        "t",
+        "th",
+        "thg"
+    ]
+    
+    return random.choice(listMonth)
+
 #=================common part==================
 def genDesPerson():
     listDesPerson = [
@@ -27,15 +38,24 @@ def genPrefixQuestion():
     
     listPrefixQuestion = [
         f"cho {person} hỏi",
+        "",
+        "",
         f"{person} muốn biết",
         f"xin hỏi",
         f"cho {person} biết",
+        "",
+        "",
+        "",
         f"có thể cho {person} biết",
         f"{person} có một câu hỏi là",
         f"{person} có một vấn đề cần được giải đáp",
+        "",
+        "",
+        "",
         f"bạn hãy giúp {person} giải đáp thắc mắc sau",
         f"bạn có thể {genDesExplain(person)}",
-        f"hãy giúp {person} hiểu hơn về"
+        f"hãy giúp {person} hiểu hơn về",
+        "",
         "",
     ]
     
@@ -43,9 +63,9 @@ def genPrefixQuestion():
 
 def genDesViewMonth(index=None):
     listDesViewMonth = [
-        "tháng <tháng>, năm <năm>",
-        "t<tháng>/<năm>",
-        "tháng <tháng>, <năm>"
+        f"{month()} <tháng>, năm <năm>",
+        f"{month()}<tháng>/<năm>",
+        f"{month()} <tháng>, <năm>"
     ]
     
     if index is None:
@@ -184,6 +204,7 @@ def genQuesOneKPI(view = None):
     listQuesOneKPI = [
         f"{genDesView(view)} {genPrefixQuestion()} {genDesOneKPI()} ?",
         f"{genPrefixQuestion()} {genDesView(view)} {genDesOneKPI()} ?",
+        f"{genPrefixQuestion()} {genDesOneKPI()} {genDesView(view)} ?",
         f"{genPrefixQuestion()} {genDesOneKPI()} {genDesView(view)} ?"
     ]
     
@@ -259,6 +280,7 @@ def genQuesGroupKPIOverall(view = None):
     listQuesGroupKPIOverall = [
         f"{genDesView(view)} {genPrefixQuestion()} {genDesOverall()} ?",
         f"{genPrefixQuestion()} {genDesView(view)} {genDesOverall()} ?",
+        f"{genPrefixQuestion()} {genDesOverall()} {genDesView(view)} ?",
         f"{genPrefixQuestion()} {genDesOverall()} {genDesView(view)} ?"
     ]
     
@@ -367,6 +389,7 @@ def genGroupKPIDetail(view = None,index=None):
     listGroupKPIDetail = [
         f"{genDesView(view)} {genPrefixQuestion()} {genDetailQues(index)}?",
         f"{genPrefixQuestion()} trong {genDesView(view)} {genDetailQues(index)}?",
+        f"{genPrefixQuestion()} {genDetailQues(index)} trong {genDesView(view)}?",
         f"{genPrefixQuestion()} {genDetailQues(index)} trong {genDesView(view)}?"
     ]
     
@@ -433,20 +456,30 @@ def genChain(index=None):
     return listChain[index]
 
 def genInferMomQues(index = None):
+    
+    idx = random.choice([0,1])
+    if idx == 0:
+        mom = 'mẹ'
+        cum = ''
+    else:
+        mom = ''
+        cum = 'cụm'
+    
     listInferMom = [
-        f"chỉ tiêu <tên chỉ tiêu> thuộc về chỉ tiêu mẹ <tên cụm chỉ tiêu> là gì",
-        f"chỉ tiêu mẹ của chỉ tiêu <tên chỉ tiêu> là gì",
-        f"chỉ tiêu con <tên chỉ tiêu> được phân loại vào {genPharaCum()} chỉ tiêu mẹ nào",
-        f"chỉ tiêu mẹ của chỉ tiêu con <tên chỉ tiêu> có tên là gì trong danh sách chỉ tiêu",
-        f"thông tin về chỉ tiêu mẹ của chỉ tiêu <tên chỉ tiêu>",
+        f"chỉ tiêu {random.choice(['con',''])} <tên chỉ tiêu> thuộc về chỉ tiêu {cum} <tên cụm chỉ tiêu> {mom} là gì",
+        f"{cum} chỉ tiêu {mom} của chỉ tiêu {random.choice(['con',''])} <tên chỉ tiêu> là gì",
+        f"chỉ tiêu {random.choice(['con',''])} <tên chỉ tiêu> được phân loại vào {genPharaCum()} {cum} chỉ tiêu {mom} nào",
+        f"{cum} chỉ tiêu {mom} của chỉ tiêu {random.choice(['con',''])} <tên chỉ tiêu> có tên là gì trong danh sách chỉ tiêu",
+        f"thông tin về {cum} chỉ tiêu {mom} của chỉ tiêu {random.choice(['con',''])} <tên chỉ tiêu>"
     ]
     
-    return random.choice(listInferMom) + ' ' + genChain(index)
+    return random.choice(listInferMom).strip().replace('  ',' ') + ' ' + genChain(index)
 
 def genInferenceMom(index=None):
     listInfernceMom = [
         f"{genDesView('month')} {genPrefixQuestion()} {genInferMomQues(index)}?",
         f"{genPrefixQuestion()} trong {genDesView('month')} {genInferMomQues(index)}?",
+        f"{genPrefixQuestion()} {genInferMomQues(index)} trong {genDesView('month')}?",
         f"{genPrefixQuestion()} {genInferMomQues(index)} trong {genDesView('month')}?"
     ]
     
@@ -516,7 +549,7 @@ def genDescMonthQuarter():
 def genCross():
     listCross = [
         f"chỉ tiêu <tên chỉ tiêu> có kết quả đánh giá trong cùng {genDescMonthQuarter()} {genPostfixGroup()}",
-        f"{genRes1()} đối với {genDescMonthQuarter()} {genPostfixGroup()} với chỉ tiêu <tên chỉ tiêu>"
+        f"{genRes1()} đối với {genDescMonthQuarter()} {genPostfixGroup()} với chỉ tiêu <tên chỉ tiêu>",
         f"so sánh {genRes1()} nhận được của {genDescMonthQuarter()} với chỉ tiêu <tên chỉ tiêu>",
         f"so sánh {genRes1()} nhận được của chỉ tiêu <tên chỉ tiêu> trong {genDescMonthQuarter()}",
         f"{genRes1()} tháng của chỉ tiêu <tên chỉ tiêu> khác gì so với quý",
@@ -582,6 +615,7 @@ def genQuesTongCongTy(view = None):
     listQuesTongCongTy = [
         f"{genDesView(view)} {genPrefixQuestion()} {genTongCongTy()}?",
         f"{genPrefixQuestion()} trong {genDesView(view)} {genTongCongTy()}?",
+        f"{genPrefixQuestion()} {genTongCongTy()} trong {genDesView(view)}?",
         f"{genPrefixQuestion()} {genTongCongTy()} trong {genDesView(view)}?"
     ]
     
@@ -613,12 +647,12 @@ def genDescSeason():
 
 def genSeason():
     listSeason = [
-        f"trong <năm-m> năm {genDescSeason()} của tháng <tháng>, chỉ tiêu <tên chỉ tiêu> có {genCheck()} {genPostfixGroup()}",
-        f"chỉ tiêu <tên chỉ tiêu> được đánh giá trong <năm-m> năm {genDescSeason()} của tháng <tháng> có {genCheck()} {genPosfix()}",
-        f"vào tháng <tháng> của <năm-m> năm {genDescSeason()}, kết quả của chỉ tiêu <tên chỉ tiêu> {genPosfix()}",
-        f"tính từ <tháng> với các năm từ 2020 đến <năm>, chỉ tiêu <tên chỉ tiêu> được đánh giá {genPostfixGroup()}"
-        f"{genVision()} chỉ tiêu <tên chỉ tiêu> tính từ <tháng> với các năm từ 2020 đến <năm> {genPostfixGroup()}",
-        f"{genRes1()} của chỉ tiêu <tên chỉ tiêu> trong <năm-m> năm {genDescSeason()} của tháng <tháng>"
+        f"trong <năm-m> năm {genDescSeason()} của {month()} <tháng>, chỉ tiêu <tên chỉ tiêu> có {genCheck()} {genPostfixGroup()}",
+        f"chỉ tiêu <tên chỉ tiêu> được đánh giá trong <năm-m> năm {genDescSeason()} của {month()} <tháng> có {genCheck()} {genPosfix()}",
+        f"vào {month()} <tháng> của <năm-m> năm {genDescSeason()}, kết quả của chỉ tiêu <tên chỉ tiêu> {genPosfix()}",
+        f"tính từ {month()} <tháng> với các năm từ 2020 đến <năm>, chỉ tiêu <tên chỉ tiêu> được đánh giá {genPostfixGroup()}",
+        f"{genVision()} chỉ tiêu <tên chỉ tiêu> tính từ {month()} <tháng> với các năm từ 2020 đến <năm> {genPostfixGroup()}",
+        f"{genRes1()} của chỉ tiêu <tên chỉ tiêu> trong <năm-m> năm {genDescSeason()} của {month()} <tháng>"
     ]
     
     return random.choice(listSeason)
@@ -627,11 +661,11 @@ def genMonthBefore():
     listMonthBefore = [
         f"tính đến {genDesViewMonth()} và các tháng trước đó thì chỉ tiêu <tên chỉ tiêu> hiện được kết quả {genPostfixGroup()}",
         f"chỉ tiêu <tên chỉ tiêu> với các tháng trong năm tính đến {genDesViewMonth()} hiện được đánh giá thế nào",
-        f"{genCheck()} về hiện trạng của chỉ tiêu <tên chỉ tiêu> từ đầu <năm> đến tháng <tháng>",
+        f"{genCheck()} về hiện trạng của chỉ tiêu <tên chỉ tiêu> từ đầu <năm> đến {month()} <tháng>",
         f"{genRes1()} {genOverall()} từ đầu năm đến {genDesViewMonth()} của chỉ tiêu <tên chỉ tiêu>",
-        f"{genCheck()} {genRes1()} của chỉ tiêu <tên chỉ tiêu> từ 1/<năm> đến <tháng>/<năm> {genPostfixGroup()}",
-        f"từ 1/<năm> đến <tháng>/<năm>, hiện chỉ tiêu <tên chỉ tiêu> có {genCheck()} {genPostfixGroup()}",
-        f"chỉ tiêu <tên chỉ tiêu> được đánh giá {genOverall()} ra làm sao với các tháng trong năm tính đến <tháng>/<năm>",
+        f"{genCheck()} {genRes1()} của chỉ tiêu <tên chỉ tiêu> từ {month()} 1/<năm> đến {month()} <tháng>/<năm> {genPostfixGroup()}",
+        f"từ {month()} 1/<năm> đến {month()} <tháng>/<năm>, hiện chỉ tiêu <tên chỉ tiêu> có {genCheck()} {genPostfixGroup()}",
+        f"chỉ tiêu <tên chỉ tiêu> được đánh giá {genOverall()} ra làm sao với các tháng trong năm tính đến {month()} <tháng>/<năm>",
     ]
     
     return random.choice(listMonthBefore)
@@ -690,9 +724,9 @@ def genResMonth():
 
 def genDescNextMonth():
     listDescNextMonth = [
-        f"từ đầu <năm> đến tháng <tháng>",
-        f"từ 1/<năm> đến <tháng>/<năm>",
-        f"với các tháng trong năm tính đến <tháng>/<năm>",
+        f"từ đầu <năm> đến {month()} <tháng>",
+        f"{month()} từ 1/<năm> đến {month()} <tháng>/<năm>",
+        f"với các tháng trong năm tính đến {month()} <tháng>/<năm>",
         f"tháng <tháng> và các tháng trước đó trong <năm>"
     ]
 
@@ -700,9 +734,9 @@ def genDescNextMonth():
 
 def genDescSeason1():
     listDescSeason = [
-        f", trong <năm-m> năm {genDescSeason()} của tháng <tháng>",
-        f", tính từ <tháng> với các năm từ 2020 đến <năm>",
-        f", vào tháng <tháng> của <năm-m> năm {genDescSeason()}",
+        f", trong <năm-m> năm {genDescSeason()} của {month()} <tháng>",
+        f", tính từ {month()} <tháng> với các năm từ 2020 đến <năm>",
+        f", vào {month()} <tháng> của <năm-m> năm {genDescSeason()}",
     ]
     
     return random.choice(listDescSeason)
@@ -857,7 +891,7 @@ def genQuesExplainResult():
     return random.choice(listQuesTongCongTy)
 #=================ExplainResult================
 
-#=================DetermineTrend===============
+#=================DeteIrmineTrend===============
 def genTrend():
     listTrend = [
         'trend',
@@ -1046,6 +1080,7 @@ def genQuesStat1KPI(view = None,choice=""):
     listQuesStat1KPI = [
         f"{genDesView(view)} {genPrefixQuestion()} {genStat1KPI(choice)}?",
         f"{genPrefixQuestion()} trong {genDesView(view)} {genStat1KPI(choice)}?",
+        f"{genPrefixQuestion()} {genStat1KPI(choice)} trong {genDesView(view)}?",
         f"{genPrefixQuestion()} {genStat1KPI(choice)} trong {genDesView(view)}?"
     ]
     
@@ -1138,7 +1173,8 @@ def genQuesStatGroupKPI(view = None,choice=""):
     listQuesStatGroupKPI = [
         f"{genDesView(view)} {genPrefixQuestion()} {genStatGroupKPI(choice)}?",
         f"{genPrefixQuestion()} trong {genDesView(view)} {genStatGroupKPI(choice)}?",
-        f"{genPrefixQuestion()} {genStatGroupKPI(choice)} trong {genDesView(view)}?"   
+        f"{genPrefixQuestion()} {genStatGroupKPI(choice)} trong {genDesView(view)}?",
+        f"{genPrefixQuestion()} {genStatGroupKPI(choice)} trong {genDesView(view)}?"      
     ]
     
     return random.choice(listQuesStatGroupKPI)

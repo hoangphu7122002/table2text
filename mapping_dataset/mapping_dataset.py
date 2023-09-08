@@ -46,8 +46,10 @@ def loadParentSet(loaded_dict,company='VTS'):
 
 def listingGroupKPI(loaded_dict,company='VTPOST',kpi_mom='Tỷ lệ xử lý phản ánh của KH'):
     listOneKPI = []
-    for oneKPI in loaded_dict['01/2020']['month'][company]:
+    # print(kpi_mom)
+    for oneKPI in loaded_dict['01/2020']['month'][company].keys():
         comp = loaded_dict['01/2020']['month'][company][oneKPI]['KPI MẸ']
+        # print(comp)
         if comp == kpi_mom: 
             listOneKPI.append(oneKPI)
     return listOneKPI
@@ -200,7 +202,9 @@ def mappingGroupMonthOverall(timeFind,view="",company="",groupKPI="",index = Non
     if groupKPI == "":
         parentSet = loadParentSet(loaded_dict,company)
         groupKPI = random.choice(list(parentSet))
+    # print(groupKPI)
     kpiList = listingGroupKPI(loaded_dict,company,groupKPI)
+    # print(kpiList)
     #đưa về trường hợp đặc biệt
     if len(kpiList) == 1:
         dataset = loaded_dict[timeFind][view][company][kpiList[0]]
@@ -309,6 +313,7 @@ def mappingGroupMonthDetail(timeFind,view="",company="",groupKPI="",index = None
     elif index == 1: listIter = kpiDatList
     else: listIter = kpiKoDatList
     sente = ""
+    print(listIter)
     for kpi in listIter:
         sente += f"""\n+ {mappingOneKPI(timeFind, view, company, kpi,dict_index={"indexNow":indexMonthNow,
                                                                     "indexBefore":indexMonthBefore,
@@ -899,5 +904,6 @@ def mappingCtyDescribe(timeFind,view="",company=""):
 # mappingViewExplainResult('06/2023')
 # print(mappingCrossView('01/2020'))
 # print(mappingChildInferenceMom('02/2020'))
-# print(mappingGroupMonthDetail('01/2020',view="",company="",groupKPI="",index = 1))
-print(mappingOneKPI('01/2020') + '.')
+# print(mappingGroupMonthDetail('03/2020'))
+print(mappingGroupMonthDetail('01/2020','month','VTS','Tiến độ xử lý PAKH (theo từng dịch vụ trọng điểm)'))
+# print(mappingOneKPI('01/2020') + '.')

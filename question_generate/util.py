@@ -23,7 +23,8 @@ allList = ['tất cả','toàn bộ','các','đầy đủ','bao gồm']
 detailList = ["chi tiết","sâu hơn","tường tận","cặn kẽ","tỉ mỉ","đầy đủ","tường minh","rõ ràng"]
 overallList = ["khái quát","tổng quan","tổng thể","cơ bản","tổng hợp","tóm tắt"]
 nextMonthList = ["tháng tiếp theo","tháng kế tiếp","tháng sau","tháng <tháng+1>","vào tháng tới"]
-seasonList = "2020 đến"
+seasonList = ["2020 đến"]
+view = ["quý","tháng","năm"]
 
 dictList = {
     "<mean>": meanDesc,
@@ -35,7 +36,8 @@ dictList = {
     "<chi tiết>": detailList,
     "<tổng quan>":overallList,
     "<tháng tiếp theo>":nextMonthList,
-    "<mùa>":seasonList
+    "<mùa>":seasonList,
+    "<view>":view
 }
 
 #==================Util function===================

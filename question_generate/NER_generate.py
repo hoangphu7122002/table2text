@@ -1,19 +1,32 @@
 import question_template
 from util import *
 import random
+from collections import defaultdict
+import string
+
+punctuation = string.punctuation
 
 def labelNer(templateGen,data):
+    
     def find(s, ch):
         return [i for i, ltr in enumerate(s) if ltr == ch]
     #handle tag
+    for punc in punctuation:
+        if punc in ['<','>','_']:
+            continue
+        templateGen = templateGen.replace(punc,' ')
+    
+    templateGen = templateGen.replace('  ',' ')
     lowerDigit = find(templateGen,'<')
     greaterDigit = find(templateGen,'>')
     lenDigit = [g + 1 - l for l,g in zip(lowerDigit,greaterDigit)]
     
     tag_L = 0
-    ner = {}
+    ner = defaultdict(list)
     save = ""
     list_replace = []
+
+    
     
     for l,g in zip(lowerDigit,lenDigit):
         tag = templateGen[l:l+g]
@@ -25,23 +38,23 @@ def labelNer(templateGen,data):
         
         tag_L = tag_L + end - len(tag)
         
-        if tag not in ner.keys():
-            ner[tag] = (begin,begin+end,save)   
+        # if tag not in ner.keys():
+        ner[tag].append((begin,begin+end,save))
         list_replace.append((tag,save))
     
     #replace process
     for ele in list_replace:
         tag,save = ele
-        templateGen = templateGen.replace(tag,save)
-        
+        templateGen = templateGen.replace(tag,save,1)
+
     #find text in templateGen
-    for key in dictList.keys():
-        list_ele = dictList[key]
-        for ele in list_ele:
-            idx = templateGen.rfind(ele)
-            if idx != -1:
-                ner[key] = (idx,idx+len(ele),ele)
-                break
+    # for key in dictList.keys():
+    #     list_ele = dictList[key]
+    #     for ele in list_ele:
+    #         idx = templateGen.rfind(ele)
+    #         if idx != -1:
+    #             ner[key] = (idx,idx+len(ele),ele)
+    #             break
     
     return ner,templateGen
 

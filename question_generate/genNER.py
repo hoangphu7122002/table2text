@@ -4,12 +4,12 @@ import json
 
 listDate = NER_generate.helperFunction.generateListDate()
 
-lenRes = 1000
+lenRes = 10000
 
 def scriptOneKPI():
     listQA = []
     for _ in range(lenRes):
-        try:
+        # try:
             date = random.choice(listDate)
             view = random.choice(["month","quarter","year"])
             company = random.choice(["VTS","VTT","VDS","VTPOST"])
@@ -22,8 +22,8 @@ def scriptOneKPI():
             dict_res = NER_generate.nerOneKPI(date,view,company,kpi)
             
             listQA.append(dict_res)
-        except:
-            continue   
+        # except:
+        #     continue   
     
     with open('datasetNER/oneKPI.json', 'w') as outfile:
         outfile.write(json.dumps(listQA))
